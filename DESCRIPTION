@@ -8,7 +8,8 @@ Description: TODO.
 Depends: R (>= 3.2)
 Imports:
   stats,
-  graphics
+  graphics,
+  MASS
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

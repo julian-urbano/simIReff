@@ -33,9 +33,15 @@ plot.effCont <- function(x, ...) {
   par(prevpar) # reset previous par
 }
 
+
+#' Truncate a variable from below and above.
+cap <- function(x, xmin = 1e-6, xmax = 1-1e-6) {
+  pmin(xmax, pmax(xmin, x))
+}
+
 #' Expected value of a continuous effectiveness distribution.
 #'
-#' Computes the expected value of a distribution by numerical integration of the supplied quantile
+#' Computes the expected value of a distribution by numerical integration of the given quantile
 #' function between 0 and 1.
 #'
 #' @param qeff the quantile function of the distribution.
