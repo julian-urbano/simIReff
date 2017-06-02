@@ -13,21 +13,21 @@ effCont_new <- function(mu, df) {
 }
 
 #' @export
-plot.effCont <- function(x, ...) {
+plot.effCont <- function(x, subdivisions = 500, ...) {
   prevpar <- par(mfrow = c(1, 3))
 
   # density
-  x0 <- seq(0, 1, .01)
+  x0 <- seq(0, 1, length.out = subdivisions)
   y0 <- deff(x0, x)
-  plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)")
+  plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)", xlim = 0:1)
   points(x$mu, deff(x$mu, x))
   # distribution
   y0 <- peff(x0, x)
-  plot(x0, y0, type = "l", xlab = "x", ylab = "F(x)")
+  plot(x0, y0, type = "l", xlab = "x", ylab = "F(x)", xlim = 0:1, ylim = 0:1)
   points(x$mu, peff(x$mu, x))
   # quantile
   y0 <- qeff(x0, x)
-  plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)))
+  plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)), xlim = 0:1, ylim = 0:1)
   points(peff(x$mu, x), x$mu)
 
   par(prevpar) # reset previous par
