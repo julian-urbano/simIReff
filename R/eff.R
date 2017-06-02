@@ -36,6 +36,7 @@ peff <- function(q, eff) {
 }
 
 #' @rdname eff
+#' @export
 qeff <- function(p, eff) {
   UseMethod("qeff", eff)
 }
