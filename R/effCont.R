@@ -1,13 +1,16 @@
 #' Continuous Effectiveness Distributions
 #'
-#' @param mu the expected value of the distibution.
+#' @param mean the expected value of the distibution.
+#' @param var the variance of the distribution.
 #' @param df the effective degrees of freedom of the distribution.
+#' @param x the sample of effectiveness scores used to fit the distribution (defaults to
+#'   \code{NULL}).
 #' @return an object of class \code{effCont}
 #'
 #' @author Julián Urbano
 #' @export
-effCont_new <- function(mu, df) {
-  e <- eff_new(mu, df)
+effCont_new <- function(mean, var, df, x = NULL) {
+  e <- eff_new(mean, var, df, x)
   class(e) <- c("effCont", class(e))
   e
 }
@@ -37,7 +40,6 @@ plot.effCont <- function(x, subdivisions = 500, ...) {
   par(prevpar) # reset previous par
 }
 
-
 #' Truncate a variable from below and above.
 cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
   pmin(xmax, pmax(xmin, x))
@@ -50,15 +52,37 @@ cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
 #'
 #' @param qeff the quantile function of the distribution.
 #' @param abs.tol absolute accuracy requested, passed to \code{\link{integrate}}.
-#' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.#'
+#' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.
 #' @return the estimate of the expected value.
 #'
 #' @examples
-#' effContMu(function(p) dnorm(p, mean = 4))
-#' effContMu(function(p) qbeta(p, 1, 2))
+#' effContMean(function(p) qnorm(p, mean = 4))
+#' effContMean(function(p) qbeta(p, 1, 2))
 #'
 #' @author Julián Urbano
 #' @export
-effContMu <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
+effContMean <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
   integrate(qeff, lower = 0, upper = 1, abs.tol = abs.tol, subdivisions = subdivisions)$value
+}
+
+#' Variance of a continuous effectiveness distribution.
+#'
+#' Computes the variance of a distribution by numerical integration of the given density
+#' function between 0 and 1.
+#'
+#' @param deff the density function of the distribution.
+#' @param mu the expected value of the distribution.
+#' @param abs.tol absolute accuracy requested, passed to \code{\link{integrate}}.
+#' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.
+#' @return the estimate of the expected value.
+#'
+#' @examples
+#' effContVar(function(p) dnorm(p, mean = 4), 4)
+#' effContVar(function(p) dbeta(p, 1, 2), 1/3)
+#'
+#' @author Julián Urbano
+#' @export
+effContVar <- function(deff, mu, abs.tol = 1e-6, subdivisions = 500) {
+  integrate(function(x) deff(x) * (x - mu)^2, lower = 0, upper = 1,
+            abs.tol = abs.tol, subdivisions = subdivisions)$value
 }

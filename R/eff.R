@@ -1,6 +1,7 @@
-eff_new <- function(mu, df) {
-  e <- list(mu = mu, df = df)
-  class(e) <- "eff"
+eff_new <- function(mean, var, df, x = NULL) {
+  e <- structure(list(mean = mean, var = var, df = df), class = "eff")
+  if(!is.null(x))
+    e$data <- x
   e
 }
 

@@ -12,22 +12,23 @@
 #' @author Julián Urbano
 #' @export
 effCont_beta <- function(x) {
-  x <- cap(x)
+  x_cap <- cap(x)
 
   # estimate parameters numerically, from initial values
-  mu_0 <- mean(x)
-  sigma2_0 <- var(x)
+  mu_0 <- mean(x_cap)
+  sigma2_0 <- var(x_cap)
   shape1 <- mu_0 * (mu_0 * (1-mu_0) / sigma2_0 -1)
   shape2 <- (mu_0) * (mu_0 * (1-mu_0) / sigma2_0 -1)
 
-  fit <- MASS::fitdistr(x, densfun = "beta", start = list(shape1 = shape1, shape2 = shape2))
+  fit <- MASS::fitdistr(x_cap, densfun = "beta", start = list(shape1 = shape1, shape2 = shape2))
   shape1 <- as.numeric(fit$estimate[1])
   shape2 <- as.numeric(fit$estimate[2])
 
-  mu <- shape1 / (shape1 + shape2) # expected value
+  E <- shape1 / (shape1 + shape2) # expected value
+  Var <- shape1 * shape2 / (shape1 + shape2)^2 / (shape1 + shape2 + 1) # variance
 
   # prepare eff object and return
-  e <- effCont_new(mu, 2)
+  e <- effCont_new(E, Var, 2, x)
   e$model <- list(shape1 = shape1, shape2 = shape2)
   class(e) <- c("effCont_beta", class(e))
   e
