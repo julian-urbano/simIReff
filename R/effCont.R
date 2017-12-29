@@ -1,7 +1,7 @@
 #' Continuous Effectiveness Distributions
 #'
 #' @param mu the expected value of the distibution.
-#' @param df the effective degrees of freedom of the distribution.#'
+#' @param df the effective degrees of freedom of the distribution.
 #' @return an object of class \code{effCont}
 #'
 #' @author Julián Urbano
@@ -18,16 +18,20 @@ plot.effCont <- function(x, subdivisions = 500, ...) {
 
   # density
   x0 <- seq(0, 1, length.out = subdivisions)
+  x0 <- cap(x0, xmin=1e-4)
   y0 <- deff(x0, x)
-  plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)", xlim = 0:1)
+  plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)", xlim = 0:1,
+       main = "density")
   points(x$mu, deff(x$mu, x))
   # distribution
   y0 <- peff(x0, x)
-  plot(x0, y0, type = "l", xlab = "x", ylab = "F(x)", xlim = 0:1, ylim = 0:1)
+  plot(x0, y0, type = "l", xlab = "q", ylab = "F(q)", xlim = 0:1, ylim = 0:1,
+       main = "distribution")
   points(x$mu, peff(x$mu, x))
   # quantile
   y0 <- qeff(x0, x)
-  plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)), xlim = 0:1, ylim = 0:1)
+  plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)), xlim = 0:1, ylim = 0:1,
+       main = "quantile")
   points(peff(x$mu, x), x$mu)
 
   par(prevpar) # reset previous par
@@ -35,7 +39,7 @@ plot.effCont <- function(x, subdivisions = 500, ...) {
 
 
 #' Truncate a variable from below and above.
-cap <- function(x, xmin = 1e-6, xmax = 1-1e-6) {
+cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
   pmin(xmax, pmax(xmin, x))
 }
 
