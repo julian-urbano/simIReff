@@ -3,7 +3,7 @@
 #' Fits a Beta distribution to the given sample of scores.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{effCont_beta}, which inherits from \code{effCont}.
+#' @return an object of class \code{eff.cont.beta}, which inherits from \code{eff.cont}.
 #'
 #' @examples
 #' @todo
@@ -30,25 +30,25 @@ effCont_beta <- function(x) {
   # prepare eff object and return
   e <- effCont_new(E, Var, 2, x)
   e$model <- list(shape1 = shape1, shape2 = shape2)
-  class(e) <- c("effCont_beta", class(e))
+  class(e) <- c("eff.cont.beta", class(e))
   e
 }
 
 #' @export
-deff.effCont_beta <- function(x, eff) {
+deff.eff.cont.beta <- function(x, eff) {
   x <- cap(x)
   dbeta(x, eff$model$shape1, eff$model$shape2)
 }
 #' @export
-peff.effCont_beta <- function(q, eff) {
+peff.eff.cont.beta <- function(q, eff) {
   pbeta(q, eff$model$shape1, eff$model$shape2)
 }
 #' @export
-qeff.effCont_beta <- function(p, eff) {
+qeff.eff.cont.beta <- function(p, eff) {
   qbeta(p, eff$model$shape1, eff$model$shape2)
 }
 #' @export
-reff.effCont_beta <- function(n, eff) {
+reff.eff.cont.beta <- function(n, eff) {
   rbeta(n, eff$model$shape1, eff$model$shape2)
 }
 

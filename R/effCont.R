@@ -5,18 +5,18 @@
 #' @param df the effective degrees of freedom of the distribution.
 #' @param x the sample of effectiveness scores used to fit the distribution (defaults to
 #'   \code{NULL}).
-#' @return an object of class \code{effCont}
+#' @return an object of class \code{eff.cont}, which inherits from \code{eff}.
 #'
 #' @author Julián Urbano
 #' @export
 effCont_new <- function(mean, var, df, x = NULL) {
   e <- eff_new(mean, var, df, x)
-  class(e) <- c("effCont", class(e))
+  class(e) <- c("eff.cont", class(e))
   e
 }
 
 #' @export
-plot.effCont <- function(x, subdivisions = 500, ...) {
+plot.eff.cont <- function(x, subdivisions = 500, ...) {
   prevpar <- par(mfrow = c(1, 3))
 
   # density
@@ -25,17 +25,17 @@ plot.effCont <- function(x, subdivisions = 500, ...) {
   y0 <- deff(x0, x)
   plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)", xlim = 0:1,
        main = "density")
-  points(x$mu, deff(x$mu, x))
+  points(x$mean, deff(x$mean, x))
   # distribution
   y0 <- peff(x0, x)
   plot(x0, y0, type = "l", xlab = "q", ylab = "F(q)", xlim = 0:1, ylim = 0:1,
        main = "distribution")
-  points(x$mu, peff(x$mu, x))
+  points(x$mean, peff(x$mean, x))
   # quantile
   y0 <- qeff(x0, x)
   plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)), xlim = 0:1, ylim = 0:1,
        main = "quantile")
-  points(peff(x$mu, x), x$mu)
+  points(peff(x$mean, x), x$mean)
 
   par(prevpar) # reset previous par
 }

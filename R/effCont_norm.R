@@ -3,7 +3,7 @@
 #' Fits a Normal distribution, truncated between 0 and 1, to the given sample of scores.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{effCont_norm}, which inherits from \code{effCont}.
+#' @return an object of class \code{eff.cont.norm}, which inherits from \code{eff.cont}.
 #'
 #' @examples
 #' @todo
@@ -30,23 +30,23 @@ effCont_norm<- function(x) {
   # prepare eff object and return
   e <- effCont_new(E, Var, 2, x)
   e$model <- list(mean = mu, sd = sigma)
-  class(e) <- c("effCont_norm", class(e))
+  class(e) <- c("eff.cont.norm", class(e))
   e
 }
 
 #' @export
-deff.effCont_norm <- function(x, eff) {
+deff.eff.cont.norm <- function(x, eff) {
   truncnorm::dtruncnorm(x, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
-peff.effCont_norm <- function(q, eff) {
+peff.eff.cont.norm <- function(q, eff) {
   truncnorm::ptruncnorm(q, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
-qeff.effCont_norm <- function(p, eff) {
+qeff.eff.cont.norm <- function(p, eff) {
   truncnorm::qtruncnorm(p, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
-reff.effCont_norm <- function(n, eff) {
+reff.eff.cont.norm <- function(n, eff) {
   truncnorm::rtruncnorm(n, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
