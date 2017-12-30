@@ -86,3 +86,49 @@ effContVar <- function(deff, mu, abs.tol = 1e-6, subdivisions = 500) {
   integrate(function(x) deff(x) * (x - mu)^2, lower = 0, upper = 1,
             abs.tol = abs.tol, subdivisions = subdivisions)$value
 }
+
+#' Truncation of Distributions
+#'
+#' Computes the density, distribution and quantile functions of the distribution resulting from
+#' truncating a given distribution between 0 and 1.
+#'
+#' @param d the original density function.
+#' @param p the original distribution function.
+#' @param q the original quantile function.
+#' @param ... additional arguments passed to the original functions, if any.
+#'
+#' @return A list with components \tabular{ll}{
+#'   \code{td} \tab the truncated density function. \cr
+#'   \code{tp} \tab the truncated distribution function. \cr
+#'   \code{tq} \tab the truncated quantile function.
+#' }
+#'
+#' @examples
+#' tr <- effContTrunc(dnorm, pnorm, qnorm, mean = .8, sd = .3)
+#' x01 <- seq(0, 1, .01)
+#' plot(x01, tr$d(x01), type = "l")
+#' plot(x01, tr$p(x01), type = "l")
+#' plot(x01, tr$q(x01), type = "l")
+#'
+#' @author Julián Urbano
+#' @export
+effContTrunc <- function(d, p, q, ...) {
+  F01 <- p(0:1, ...) # distribution at endpoints 0 and 1
+
+  td <- function(x) { # truncated density
+    y <- d(x, ...) / (F01[2] - F01[1])
+    y[x<0 | x>1] <- 0
+    y
+  }
+  tp <- function(q) { # truncated distribution
+    y <- (p(q, ...) - F01[1]) / (F01[2] - F01[1])
+    cap(y, 0, 1)
+  }
+  tq <- function(p) { # truncated quantile
+    y <- q(p*(F01[2] - F01[1]) + F01[1], ...)
+    cap(y, 0, 1)
+  }
+
+  list(d = td, p = tp, q = tq)
+}
+
