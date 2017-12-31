@@ -20,31 +20,34 @@ effCont_bde <- function(x) {
   k <- bde::bde(x_cap, estimator = "betakernel")
 
   # degrees of freedom
-  fhat <- sapply(x_cap, function(xx) mean(dbeta(x_cap, xx / k@b + 1, (1 - xx) / k@b + 1)))
+  fhat <- bde::density(k, x_cap)
   K0 <- sapply(x_cap, function(xx) dbeta(xx, xx / k@b + 1, (1 - xx) / k@b + 1))
   df <- mean(K0 / fhat)
 
   E <- effContMean(function(p) bde::quantile(k, p)) # expected value
   Var <- effContVar(function(x) bde::density(k, x), E) # variance
 
+  sum1 <- integrate(function(x) bde::density(k, x), lower = 0, upper = 1)$value
+  F1 <- distribution(k, 1)
+
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
-  e$model <- k
+  e$model <- list(k = k, sum1 = sum1, F1 = F1)
   class(e) <- c("eff.cont.bde", class(e))
   e
 }
 
 #' @export
 deff.eff.cont.bde <- function(x, eff) {
-  bde::density(eff$model, x)
+  bde::density(eff$model$k, x) / eff$model$sum1
 }
 #' @export
 peff.eff.cont.bde <- function(q, eff) {
-  bde::distribution(eff$model, q)
+  bde::distribution(eff$model$k, q) / eff$model$F1
 }
 #' @export
 qeff.eff.cont.bde <- function(p, eff) {
-  bde::quantile(eff$model, p)
+  bde::quantile(eff$model$k, p)
 }
 #' @export
 reff.eff.cont.bde <- function(n, eff) {
