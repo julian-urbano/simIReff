@@ -113,7 +113,7 @@ effContVar <- function(deff, mu, abs.tol = 1e-6, subdivisions = 500) {
 #' @author Julián Urbano
 #' @export
 effContTrunc <- function(d, p, q, ...) {
-  F01 <- p(0:1, ...) # distribution at endpoints 0 and 1
+  F01 <- p(c(0,1), ...) # distribution at endpoints 0 and 1
 
   td <- function(x) { # truncated density
     y <- d(x, ...) / (F01[2] - F01[1])

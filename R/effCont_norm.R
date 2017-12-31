@@ -36,15 +36,15 @@ effCont_norm<- function(x) {
 
 #' @export
 deff.eff.cont.norm <- function(x, eff) {
-  truncnorm::dtruncnorm(x, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+  truncnorm::dtruncnorm(as.numeric(x), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
 peff.eff.cont.norm <- function(q, eff) {
-  truncnorm::ptruncnorm(q, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+  truncnorm::ptruncnorm(as.numeric(q), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
 qeff.eff.cont.norm <- function(p, eff) {
-  truncnorm::qtruncnorm(p, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+  truncnorm::qtruncnorm(as.numeric(p), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
 }
 #' @export
 reff.eff.cont.norm <- function(n, eff) {
