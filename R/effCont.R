@@ -85,6 +85,8 @@ effContMean <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
 effContVar <- function(deff, mu, abs.tol = 1e-6, subdivisions = 500) {
   integrate(function(x) deff(x) * (x - mu)^2, lower = 0, upper = 1,
             abs.tol = abs.tol, subdivisions = subdivisions)$value
+  # integrate(function(x) qeff(x)^2, lower = 0, upper = 1,
+  #           abs.tol = abs.tol, subdivisions = subdivisions)$value - mu^2
 }
 
 #' Truncation of Distributions
