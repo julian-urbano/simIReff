@@ -9,7 +9,10 @@ Depends: R (>= 3.2)
 Imports:
   stats,
   graphics,
-  MASS
+  MASS,
+  truncnorm,
+  bde,
+  ks
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
