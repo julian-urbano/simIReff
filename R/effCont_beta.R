@@ -20,7 +20,9 @@ effCont_beta <- function(x) {
   shape1 <- mu_0 * (mu_0 * (1-mu_0) / sigma2_0 -1)
   shape2 <- (mu_0) * (mu_0 * (1-mu_0) / sigma2_0 -1)
 
-  fit <- MASS::fitdistr(x_cap, densfun = "beta", start = list(shape1 = shape1, shape2 = shape2))
+  fit <- MASS::fitdistr(x_cap, densfun = "beta",
+                        start = list(shape1 = shape1, shape2 = shape2),
+                        lower = list(shape1 = 1, shape2 = 2))
   shape1 <- as.numeric(fit$estimate[1])
   shape2 <- as.numeric(fit$estimate[2])
 

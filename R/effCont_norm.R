@@ -11,7 +11,7 @@
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
 #' @author Julián Urbano
 #' @export
-effCont_norm<- function(x) {
+effCont_norm <- function(x) {
   # estimate parameters and truncated functions
   mu0 <- mean(x)
   sigma0 <- sd(x)
@@ -19,7 +19,7 @@ effCont_norm<- function(x) {
   fit <- MASS::fitdistr(x, densfun = function(xx, mu, sigma) {
     truncnorm::dtruncnorm(xx, a = 0, b = 1, mean = mu, sd = sigma)
   }, start = list(mu = mu0, sigma = sigma0),
-  lower = list(mu = -Inf, sigma = .02),
+  lower = list(mu = -Inf, sigma = .05),
   upper = list(mu = Inf, sigma = Inf))
   mu <- as.numeric(fit$estimate[1])
   sigma <- as.numeric(fit$estimate[2])
