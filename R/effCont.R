@@ -15,31 +15,6 @@ effCont_new <- function(mean, var, df, x = NULL) {
   e
 }
 
-#' @export
-plot.eff.cont <- function(x, subdivisions = 500, ...) {
-  prevpar <- par(mfrow = c(1, 3))
-
-  # density
-  x0 <- seq(0, 1, length.out = subdivisions)
-  x0 <- cap(x0, xmin=1e-4)
-  y0 <- deff(x0, x)
-  plot(x0, y0, type = "l", xlab = "x", ylab = "f(x)", xlim = 0:1,
-       main = "density")
-  points(x$mean, deff(x$mean, x))
-  # distribution
-  y0 <- peff(x0, x)
-  plot(x0, y0, type = "l", xlab = "q", ylab = "F(q)", xlim = 0:1, ylim = 0:1,
-       main = "distribution")
-  points(x$mean, peff(x$mean, x))
-  # quantile
-  y0 <- qeff(x0, x)
-  plot(x0, y0, type = "l", xlab = "p", ylab = expression(F^-1*(p)), xlim = 0:1, ylim = 0:1,
-       main = "quantile")
-  points(peff(x$mean, x), x$mean)
-
-  par(prevpar) # reset previous par
-}
-
 #' Truncate a variable from below and above.
 cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
   pmin(xmax, pmax(xmin, x))

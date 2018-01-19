@@ -28,7 +28,7 @@ effCont_bde <- function(x) {
   Var <- effContVar(function(x) bde::density(k, x), E) # variance
 
   sum1 <- integrate(function(x) bde::density(k, x), lower = 0, upper = 1)$value
-  F1 <- distribution(k, 1)
+  F1 <- bde::distribution(k, 1)
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
