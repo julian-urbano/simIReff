@@ -42,7 +42,7 @@ pplot.eff.cont <- function(eff, plot.data = FALSE, col.data = "grey70",
   abline(h = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
-    lines(ecdf(eff$data), col = col.data, pch = 19, col.01line = NA)
+    lines(ecdf(eff$data), col = col.data, pch = 19, cex = 1, col.01line = NA)
     rug(mean(eff$data), side = 1, col = col.data)
   }
 
@@ -67,7 +67,7 @@ qplot.eff.cont <- function(eff, plot.data = FALSE, col.data = "grey70",
     x_data <- sort(unique(eff$data))
     y_data <- ecdf(eff$data)(x_data)
     qfun <- stepfun(y_data[-length(y_data)], x_data, right = TRUE, ties = "ordered")
-    lines(qfun, col = col.data, pch = 19, verticals = FALSE)
+    lines(qfun, col = col.data, pch = 19, cex = 1, verticals = FALSE)
     rug(mean(eff$data), side = 2, col = col.data)
   }
 
