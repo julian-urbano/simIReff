@@ -32,22 +32,22 @@ effCont_bde <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
-  e$model <- list(k = k, sum1 = sum1, F1 = F1)
+  e$model <- list(type = "bde", bde = k, sum1 = sum1, F1 = F1)
   class(e) <- c("eff.cont.bde", class(e))
   e
 }
 
 #' @export
 deff.eff.cont.bde <- function(x, eff) {
-  bde::density(eff$model$k, x) / eff$model$sum1
+  bde::density(eff$model$bde, x) / eff$model$sum1
 }
 #' @export
 peff.eff.cont.bde <- function(q, eff) {
-  bde::distribution(eff$model$k, q) / eff$model$F1
+  bde::distribution(eff$model$bde, q) / eff$model$F1
 }
 #' @export
 qeff.eff.cont.bde <- function(p, eff) {
-  bde::quantile(eff$model$k, p)
+  bde::quantile(eff$model$bde, p)
 }
 #' @export
 reff.eff.cont.bde <- function(n, eff) {

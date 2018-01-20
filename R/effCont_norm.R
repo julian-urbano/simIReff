@@ -29,7 +29,7 @@ effCont_norm <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, 2, x)
-  e$model <- list(mean = mu, sd = sigma)
+  e$model <- list(type = "norm", mean = mu, sd = sigma)
   class(e) <- c("eff.cont.norm", class(e))
   e
 }

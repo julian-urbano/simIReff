@@ -23,7 +23,7 @@ effCont_kde <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
-  e$model <- list(model = k, d = tk$d, p = tk$p, q = tk$q)
+  e$model <- list(type = "kde", kde = k, d = tk$d, p = tk$p, q = tk$q)
   class(e) <- c("eff.cont.kde", class(e))
   e
 }

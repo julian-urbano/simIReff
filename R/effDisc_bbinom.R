@@ -21,7 +21,7 @@ effDisc_bbinom <- function(x, support) {
 
   p <- extraDistr::pbbinom(support_i, n, shape1, shape2)
   e <- effDisc_new(p, support, 2, x)
-  e$model <- list(n = n, shape1 = shape1, shape2 = shape2)
+  e$model <- list(type = "bbinom", n = n, shape1 = shape1, shape2 = shape2)
   class(e) <- c("eff.disc.bbinom", class(e))
   e
 }

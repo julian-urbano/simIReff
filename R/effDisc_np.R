@@ -18,7 +18,7 @@ effDisc_np <- function(x, support, mult = 1) {
   p <- cumsum(d)
 
   e <- effDisc_new(p, support, mean((1 - bw$bw) / d[x_i]), x)
-  e$model <- list(bw = bw, mult = mult)
+  e$model <- list(type = paste0("np(", mult, ")"), bw = bw, mult = mult)
   class(e) <- c("eff.disc.np", class(e))
   e
 }

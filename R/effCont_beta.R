@@ -31,7 +31,7 @@ effCont_beta <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, 2, x)
-  e$model <- list(shape1 = shape1, shape2 = shape2)
+  e$model <- list(type = "beta", shape1 = shape1, shape2 = shape2)
   class(e) <- c("eff.cont.beta", class(e))
   e
 }
