@@ -19,7 +19,7 @@ effCont_kde <- function(x) {
   df <- mean(dnorm(0, sd = k$h) / ks::dkde(x, fhat = k))
 
   E <- effContMean(tk$q) # expected value
-  Var <- effContVar(tk$d, E) # variance
+  Var <- effContVar(tk$q, E) # variance
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)

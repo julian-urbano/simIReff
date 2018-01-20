@@ -19,6 +19,22 @@ effTransform <- function(eff, mean = base::mean(eff$data), abs.tol = 1e-6) {
   return(effTransform_inner(eff, opt$par[1], opt$par[2]))
 }
 
+#' @export
+effTransformAll <- function(effs, mean = base::mean(effs[[1]]$data), silent = TRUE, ...) {
+  teffs <- vector("list", length(effs))
+
+  for(i in seq_along(effs)) {
+    e <- try(effTransform(effs[[i]], mean = mean, ...), silent = silent)
+
+    if(class(e) != "try-error")
+      teffs[[i]] <- e
+    else
+      teffs[[i]] <- NULL
+  }
+
+  teffs
+}
+
 effTransform_inner <- function(eff, par1, par2) {
   if(inherits(eff, "eff.cont")) { # continuous
 
@@ -34,7 +50,7 @@ effTransform_inner <- function(eff, par1, par2) {
     }
 
     E <- effContMean(qfun)
-    Var <- effContVar(dfun, E)
+    Var <- effContVar(qfun, E)
 
     teff <- effCont_new(E, Var, eff$df, eff$data)
     teff$model <- list(type = paste0("t(", eff$model$type, ")"),
