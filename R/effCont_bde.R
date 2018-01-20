@@ -25,7 +25,7 @@ effCont_bde <- function(x) {
   df <- mean(K0 / fhat)
 
   E <- effContMean(function(p) bde::quantile(k, p)) # expected value
-  Var <- effContVar(function(x) bde::quantile(k, p), E) # variance
+  Var <- effContVar(function(p) bde::quantile(k, p), E) # variance
 
   sum1 <- integrate(function(x) bde::density(k, x), lower = 0, upper = 1)$value
   F1 <- bde::distribution(k, 1)
