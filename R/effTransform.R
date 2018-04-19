@@ -73,16 +73,16 @@ effTransform_inner <- function(eff, par1, par2) {
   }
 }
 
-deff.eff.cont.trans <- function(x, eff) {
-  eff$model$dfun(x)
+deff.eff.cont.trans <- function(x, .eff) {
+  .eff$model$dfun(x)
 }
-peff.eff.cont.trans <- function(q, eff) {
-  eff$model$pfun(q)
+peff.eff.cont.trans <- function(q, .eff) {
+  .eff$model$pfun(q)
 }
-qeff.eff.cont.trans <- function(p, eff) {
-  eff$model$qfun(p)
+qeff.eff.cont.trans <- function(p, .eff) {
+  .eff$model$qfun(p)
 }
-reff.eff.cont.trans <- function(n, eff) {
+reff.eff.cont.trans <- function(n, .eff) {
   u <- runif(n)
-  eff$model$qfun(u)
+  .eff$model$qfun(u)
 }

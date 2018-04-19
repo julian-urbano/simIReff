@@ -35,18 +35,18 @@ effCont_norm <- function(x) {
 }
 
 #' @export
-deff.eff.cont.norm <- function(x, eff) {
-  truncnorm::dtruncnorm(as.numeric(x), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+deff.eff.cont.norm <- function(x, .eff) {
+  truncnorm::dtruncnorm(as.numeric(x), a = 0, b = 1, mean = .eff$model$mean, sd = .eff$model$sd)
 }
 #' @export
-peff.eff.cont.norm <- function(q, eff) {
-  truncnorm::ptruncnorm(as.numeric(q), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+peff.eff.cont.norm <- function(q, .eff) {
+  truncnorm::ptruncnorm(as.numeric(q), a = 0, b = 1, mean = .eff$model$mean, sd = .eff$model$sd)
 }
 #' @export
-qeff.eff.cont.norm <- function(p, eff) {
-  truncnorm::qtruncnorm(as.numeric(p), a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+qeff.eff.cont.norm <- function(p, .eff) {
+  truncnorm::qtruncnorm(as.numeric(p), a = 0, b = 1, mean = .eff$model$mean, sd = .eff$model$sd)
 }
 #' @export
-reff.eff.cont.norm <- function(n, eff) {
-  truncnorm::rtruncnorm(n, a = 0, b = 1, mean = eff$model$mean, sd = eff$model$sd)
+reff.eff.cont.norm <- function(n, .eff) {
+  truncnorm::rtruncnorm(n, a = 0, b = 1, mean = .eff$model$mean, sd = .eff$model$sd)
 }

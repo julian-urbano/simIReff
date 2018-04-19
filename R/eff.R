@@ -13,7 +13,7 @@ eff_new <- function(mean, var, df, x = NULL) {
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
 #' @param n number of observations.
-#' @param eff the \code{eff} object representing the effectiveness distribution.
+#' @param .eff the \code{eff} object representing the effectiveness distribution.
 #' @return \code{deff} gives the density, \code{peff} gives the distribution function, \code{qeff}
 #'   gives the quantile function, and \code{reff} generates random variates.
 #'
@@ -26,24 +26,21 @@ NULL
 
 #' @rdname eff
 #' @export
-deff <- function(x, eff){
-  UseMethod("deff", eff)
+deff <- function(x, .eff){
+  UseMethod("deff", .eff)
 }
-
 #' @rdname eff
 #' @export
-peff <- function(q, eff) {
-  UseMethod("peff", eff)
+peff <- function(q, .eff) {
+  UseMethod("peff", .eff)
 }
-
 #' @rdname eff
 #' @export
-qeff <- function(p, eff) {
-  UseMethod("qeff", eff)
+qeff <- function(p, .eff) {
+  UseMethod("qeff", .eff)
 }
-
 #' @rdname eff
 #' @export
-reff <- function(n, eff) {
-  UseMethod("reff", eff)
+reff <- function(n, .eff) {
+  UseMethod("reff", .eff)
 }

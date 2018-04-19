@@ -47,20 +47,20 @@ matchTol <- Vectorize(function(x, table, tol = 1e-4) {
 }, vectorize.args = "x", SIMPLIFY = TRUE)
 
 #' @export
-deff.eff.disc <- function(x, eff) {
-  eff$dfun(x)
+deff.eff.disc <- function(x, .eff) {
+  .eff$dfun(x)
 }
 #' @export
-peff.eff.disc <- function(q, eff) {
-  eff$pfun(q)
+peff.eff.disc <- function(q, .eff) {
+  .eff$pfun(q)
 }
 #' @export
-qeff.eff.disc <- function(p, eff) {
-  eff$qfun(p)
+qeff.eff.disc <- function(p, .eff) {
+  .eff$qfun(p)
 }
 #' @export
-reff.eff.disc <- function(n, eff) {
+reff.eff.disc <- function(n, .eff) {
   u <- runif(n)
-  eff$qfun(u)
+  .eff$qfun(u)
 }
 

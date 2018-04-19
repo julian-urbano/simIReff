@@ -29,19 +29,19 @@ effCont_kde <- function(x) {
 }
 
 #' @export
-deff.eff.cont.kde <- function(x, eff) {
-  eff$model$d(x)
+deff.eff.cont.kde <- function(x, .eff) {
+  .eff$model$d(x)
 }
 #' @export
-peff.eff.cont.kde <- function(q, eff) {
-  eff$model$p(q)
+peff.eff.cont.kde <- function(q, .eff) {
+  .eff$model$p(q)
 }
 #' @export
-qeff.eff.cont.kde <- function(p, eff) {
-  eff$model$q(p)
+qeff.eff.cont.kde <- function(p, .eff) {
+  .eff$model$q(p)
 }
 #' @export
-reff.eff.cont.kde <- function(n, eff) {
+reff.eff.cont.kde <- function(n, .eff) {
   r <- runif(n)
-  eff$model$q(r)
+  .eff$model$q(r)
 }

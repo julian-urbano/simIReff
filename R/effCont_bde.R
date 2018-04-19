@@ -38,19 +38,19 @@ effCont_bde <- function(x) {
 }
 
 #' @export
-deff.eff.cont.bde <- function(x, eff) {
-  bde::density(eff$model$bde, x) / eff$model$sum1
+deff.eff.cont.bde <- function(x, .eff) {
+  bde::density(.eff$model$bde, x) / .eff$model$sum1
 }
 #' @export
-peff.eff.cont.bde <- function(q, eff) {
-  bde::distribution(eff$model$bde, q) / eff$model$F1
+peff.eff.cont.bde <- function(q, .eff) {
+  bde::distribution(.eff$model$bde, q) / .eff$model$F1
 }
 #' @export
-qeff.eff.cont.bde <- function(p, eff) {
-  bde::quantile(eff$model$bde, p)
+qeff.eff.cont.bde <- function(p, .eff) {
+  bde::quantile(.eff$model$bde, p)
 }
 #' @export
-reff.eff.cont.bde <- function(n, eff) {
-  bde::rsample(eff$model, n)
+reff.eff.cont.bde <- function(n, .eff) {
+  bde::rsample(.eff$model, n)
 }
 

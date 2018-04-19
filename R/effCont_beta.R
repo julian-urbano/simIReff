@@ -37,20 +37,20 @@ effCont_beta <- function(x) {
 }
 
 #' @export
-deff.eff.cont.beta <- function(x, eff) {
+deff.eff.cont.beta <- function(x, .eff) {
   x <- cap(x)
-  dbeta(x, eff$model$shape1, eff$model$shape2)
+  dbeta(x, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
-peff.eff.cont.beta <- function(q, eff) {
-  pbeta(q, eff$model$shape1, eff$model$shape2)
+peff.eff.cont.beta <- function(q, .eff) {
+  pbeta(q, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
-qeff.eff.cont.beta <- function(p, eff) {
-  qbeta(p, eff$model$shape1, eff$model$shape2)
+qeff.eff.cont.beta <- function(p, .eff) {
+  qbeta(p, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
-reff.eff.cont.beta <- function(n, eff) {
-  rbeta(n, eff$model$shape1, eff$model$shape2)
+reff.eff.cont.beta <- function(n, .eff) {
+  rbeta(n, .eff$model$shape1, .eff$model$shape2)
 }
 

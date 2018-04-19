@@ -39,23 +39,23 @@ effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", return = "index"
 
 #' @rdname effSelect
 #' @export
-logLik.eff <- function(eff, x = eff$data, ...) {
+logLik.eff <- function(.eff, x = .eff$data, ...) {
   stopifnot(!is.null(x))
 
-  ll <- sum(log(deff(x, eff)))
-  structure(ll, class = "logLik", df = eff$df, nobs = length(x))
+  ll <- sum(log(deff(x, .eff)))
+  structure(ll, class = "logLik", df = .eff$df, nobs = length(x))
 }
 
 #' @rdname effSelect
 #' @export
-AIC.eff <- function(eff, x = eff$data, k = 2, ...) {
-  ll <- logLik(eff, x)
+AIC.eff <- function(.eff, x = .eff$data, k = 2, ...) {
+  ll <- logLik(.eff, x)
   k * attr(ll, "df") - 2 * as.numeric(ll)
 }
 
 #' @rdname effSelect
 #' @export
-BIC.eff <- function(eff, x = eff$data, ...) {
-  ll <- logLik(eff, x)
+BIC.eff <- function(.eff, x = .eff$data, ...) {
+  ll <- logLik(.eff, x)
   log(attr(ll, "nobs")) * attr(ll, "df") - 2 * as.numeric(ll)
 }
