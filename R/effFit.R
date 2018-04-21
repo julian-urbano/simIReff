@@ -4,8 +4,8 @@ effContFit <- function(x, silent = TRUE) {
 
   try(effs[[1]] <- effCont_norm(x), silent = silent)
   try(effs[[2]] <- effCont_beta(x), silent = silent)
-  try(effs[[3]] <- effCont_kde(x), silent = silent)
-  try(effs[[4]] <- effCont_bde(x), silent = silent)
+  try(effs[[3]] <- effCont_nks(x), silent = silent)
+  try(effs[[4]] <- effCont_bks(x), silent = silent)
 
   effs <- effs[!sapply(effs, is.null)]
   if(length(effs) == 0)

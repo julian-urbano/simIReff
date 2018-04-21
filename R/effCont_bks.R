@@ -4,7 +4,7 @@
 #' beta kernel by Chen (1999) is used, as in \code{\link[bde]{chen99Kernel}}.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{eff.cont.bde}, which inherits from \code{eff.cont}.
+#' @return an object of class \code{eff.cont.bks}, which inherits from \code{eff.cont}.
 #'
 #' @examples
 #' @todo
@@ -14,7 +14,7 @@
 #' @references Chen, S. X. (1999). Beta kernel estimators for density functions. Computational
 #'   Statistics & Data Analysis, 31, 131-145.
 #' @export
-effCont_bde <- function(x) {
+effCont_bks <- function(x) {
   x_cap <- cap(x)
   # estimate
   k <- bde::bde(x_cap, estimator = "betakernel")
@@ -32,25 +32,25 @@ effCont_bde <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
-  e$model <- list(type = "bde", bde = k, sum1 = sum1, F1 = F1)
-  class(e) <- c("eff.cont.bde", class(e))
+  e$model <- list(type = "bks", bde = k, sum1 = sum1, F1 = F1)
+  class(e) <- c("eff.cont.bks", class(e))
   e
 }
 
 #' @export
-deff.eff.cont.bde <- function(x, .eff) {
+deff.eff.cont.bks <- function(x, .eff) {
   bde::density(.eff$model$bde, x) / .eff$model$sum1
 }
 #' @export
-peff.eff.cont.bde <- function(q, .eff) {
+peff.eff.cont.bks <- function(q, .eff) {
   bde::distribution(.eff$model$bde, q) / .eff$model$F1
 }
 #' @export
-qeff.eff.cont.bde <- function(p, .eff) {
+qeff.eff.cont.bks <- function(p, .eff) {
   bde::quantile(.eff$model$bde, p)
 }
 #' @export
-reff.eff.cont.bde <- function(n, .eff) {
+reff.eff.cont.bks <- function(n, .eff) {
   bde::rsample(.eff$model, n)
 }
 

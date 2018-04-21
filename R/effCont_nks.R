@@ -4,7 +4,7 @@
 #' using a gaussian kernel.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{eff.cont.kde}, which inherits from \code{eff.cont}.
+#' @return an object of class \code{eff.cont.nks}, which inherits from \code{eff.cont}.
 #'
 #' @examples
 #' @todo
@@ -12,7 +12,7 @@
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
 #' @author Julián Urbano, Thomas Nagler
 #' @export
-effCont_kde <- function(x) {
+effCont_nks <- function(x) {
   # estimate
   k <- ks::kde(x)
   tk <- effContTrunc(ks::dkde, ks::pkde, ks::qkde, fhat = k)
@@ -23,25 +23,25 @@ effCont_kde <- function(x) {
 
   # prepare eff object and return
   e <- effCont_new(E, Var, df, x)
-  e$model <- list(type = "kde", kde = k, d = tk$d, p = tk$p, q = tk$q)
-  class(e) <- c("eff.cont.kde", class(e))
+  e$model <- list(type = "nks", kde = k, d = tk$d, p = tk$p, q = tk$q)
+  class(e) <- c("eff.cont.nks", class(e))
   e
 }
 
 #' @export
-deff.eff.cont.kde <- function(x, .eff) {
+deff.eff.cont.nks <- function(x, .eff) {
   .eff$model$d(x)
 }
 #' @export
-peff.eff.cont.kde <- function(q, .eff) {
+peff.eff.cont.nks <- function(q, .eff) {
   .eff$model$p(q)
 }
 #' @export
-qeff.eff.cont.kde <- function(p, .eff) {
+qeff.eff.cont.nks <- function(p, .eff) {
   .eff$model$q(p)
 }
 #' @export
-reff.eff.cont.kde <- function(n, .eff) {
+reff.eff.cont.nks <- function(n, .eff) {
   r <- runif(n)
   .eff$model$q(r)
 }
