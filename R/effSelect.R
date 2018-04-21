@@ -10,8 +10,6 @@
 #' @param effs the list of candidate distributions to select from.
 #' @param x the sample data. Defaults to the data from the first distribution.
 #' @param method selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.
-#' @param return \code{"object"} to return the selected distribution object, or \code{"index"} to
-#'   return its index within the given list (default).
 #' @param ... other parameters to the selection function.
 #' @return the index within \code{effs} of the selected disttribution, with an attribute
 #'   \code{score} containing the score of the selection method used.
@@ -20,9 +18,15 @@
 #' @todo
 #'
 #' @export
-effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", return = "index", ...) {
+effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", ...) {
+  i <- which.effSelect(effs, x, method, ...)
+  effs[[i]]
+}
+#' @todo
+#'
+#' @export
+which.effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", ...) {
   method <- match.arg(method, c("AIC", "BIC", "logLik"))
-  ret <- match.arg(return, c("index", "object"))
 
   FUN <- switch(method,
                 AIC = AIC.eff,
@@ -31,11 +35,9 @@ effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", return = "index"
 
   scores <- sapply(effs, FUN, x = x, ...)
   i <- ifelse(method == "logLik", which.max(scores), which.min(scores))
-  if(ret == "index")
-    structure(i, score = scores[i])
-  else
-    effs[[i]]
+  structure(i, score = scores[i])
 }
+
 
 #' @rdname effSelect
 #' @export
