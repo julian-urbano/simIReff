@@ -18,10 +18,10 @@ effDiscFit <- function(x, support, silent = TRUE) {
   effs <- as.list(rep(NA, 5))
 
   try(effs[[1]] <- effDisc_bbinom(x, support), silent = silent)
-  try(effs[[2]] <- effDisc_np(x, support), silent = silent)
-  try(effs[[3]] <- effDisc_np(x, support, mult = 2), silent = silent)
-  try(effs[[4]] <- effDisc_np(x, support, mult = 5), silent = silent)
-  try(effs[[5]] <- effDisc_np(x, support, mult = 10), silent = silent)
+  try(effs[[2]] <- effDisc_dks(x, support), silent = silent)
+  try(effs[[3]] <- effDisc_dks(x, support, mult = 2), silent = silent)
+  try(effs[[4]] <- effDisc_dks(x, support, mult = 5), silent = silent)
+  try(effs[[5]] <- effDisc_dks(x, support, mult = 10), silent = silent)
 
   effs <- effs[!is.na(effs)]
   if(length(effs) == 0)

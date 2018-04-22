@@ -1,5 +1,5 @@
 #' @export
-effDisc_np <- function(x, support, mult = 1) {
+effDisc_dks <- function(x, support, mult = 1) {
   support <- sort(support)
 
   x_i <- matchTol(x, support)
@@ -18,7 +18,7 @@ effDisc_np <- function(x, support, mult = 1) {
   p <- cumsum(d)
 
   e <- effDisc_new(p, support, mean((1 - bw$bw) / d[x_i]), x)
-  e$model <- list(type = paste0("np(", mult, ")"), bw = bw, mult = mult)
-  class(e) <- c("eff.disc.np", class(e))
+  e$model <- list(type = paste0("dks(", mult, ")"), bw = bw, mult = mult)
+  class(e) <- c("eff.disc.dks", class(e))
   e
 }
