@@ -1,3 +1,5 @@
+#' Fit Continuous
+#'
 #' @export
 effContFit <- function(x, silent = TRUE) {
   effs <- as.list(rep(NA, 4))
@@ -13,6 +15,8 @@ effContFit <- function(x, silent = TRUE) {
   effs
 }
 
+#' Fit Discrete
+#'
 #' @export
 effDiscFit <- function(x, support, silent = TRUE) {
   effs <- as.list(rep(NA, 5))
