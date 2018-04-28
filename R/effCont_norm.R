@@ -25,11 +25,11 @@ effCont_norm <- function(x) {
   sigma <- as.numeric(fit$estimate[2])
 
   if(0 < mu - 6.0 * sigma || 1 > mu + 6.0 * sigma) {
-    # In these extre cases, truncnorm always return E=0.5 and Var=1/12, so try here
-    a <- -mu/sigma
-    b <- (1-mu)/sigma
-    E <- mu + (dnorm(a)-dnorm(b))/(pnorm(b)-pnorm(a))*sigma # expected value
-    Var <- sigma^2*(1+(a*dnorm(a)-b*dnorm(b))/(pnorm(b)-pnorm(a)))-(E-mu)^2 # variance
+    # In these extre cases, truncnorm always return E=0.5 and Var=1/12, so try numerical integration
+    E <- effContMean(function(p) truncnorm::qtruncnorm(p, a = 0, b = 1, mean = mu, sd = sigma),
+      subdivisions = 1000)
+    Var <- effContVar(function(p) truncnorm::qtruncnorm(p, a = 0, b = 1, mean = mu, sd = sigma),
+      mu = E, subdivisions = 1000)
   } else {
     E <- truncnorm::etruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # expected value
     Var <- truncnorm::vtruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # variance
