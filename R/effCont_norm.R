@@ -24,8 +24,16 @@ effCont_norm <- function(x) {
   mu <- as.numeric(fit$estimate[1])
   sigma <- as.numeric(fit$estimate[2])
 
-  E <- truncnorm::etruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # expected value
-  Var <- truncnorm::vtruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # variance
+  if(0 < mu - 6.0 * sigma || 1 > mu + 6.0 * sigma) {
+    # In these extre cases, truncnorm always return E=0.5 and Var=1/12, so try here
+    a <- -mu/sigma
+    b <- (1-mu)/sigma
+    E <- mu + (dnorm(a)-dnorm(b))/(pnorm(b)-pnorm(a))*sigma # expected value
+    Var <- sigma^2*(1+(a*dnorm(a)-b*dnorm(b))/(pnorm(b)-pnorm(a)))-(E-mu)^2 # variance
+  } else {
+    E <- truncnorm::etruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # expected value
+    Var <- truncnorm::vtruncnorm(a = 0, b = 1, mean = mu, sd = sigma) # variance
+  }
 
   # prepare eff object and return
   e <- effCont_new(E, Var, 2, x)
