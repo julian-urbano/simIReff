@@ -47,6 +47,7 @@ peff.eff.cont.bks <- function(q, .eff) {
 }
 #' @export
 qeff.eff.cont.bks <- function(p, .eff) {
+  p <- cap(p)
   bde::quantile(.eff$model$bde, p)
 }
 #' @export
