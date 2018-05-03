@@ -74,15 +74,19 @@ effTransform_inner <- function(eff, par1, par2) {
   }
 }
 
+#' @export
 deff.eff.cont.trans <- function(x, .eff) {
   .eff$model$dfun(x)
 }
+#' @export
 peff.eff.cont.trans <- function(q, .eff) {
   .eff$model$pfun(q)
 }
+#' @export
 qeff.eff.cont.trans <- function(p, .eff) {
   .eff$model$qfun(p)
 }
+#' @export
 reff.eff.cont.trans <- function(n, .eff) {
   u <- runif(n)
   .eff$model$qfun(u)
