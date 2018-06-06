@@ -2,14 +2,14 @@
 #'
 #' @param p the values of the distribution function at the support points.
 #' @param df the effective degrees of freedom of the distribution.
-#' @param support the support of the distribution
+#' @param support the support of the distribution.
 #' @param x the sample of effectiveness scores used to fit the distribution (defaults to
 #'   \code{NULL}).
 #' @return an object of class \code{eff.disc}, which inherits from \code{eff}.
-#'
-#' @examples
-#' @todo
+#' @seealso \code{\link{effDisc_fit}} to fit discrete distributions. For continuous distributions,
+#'   see \code{\link{effCont}}.
 #' @export
+#' @name effDisc
 effDisc_new <- function(p, support, df, x = NULL) {
   d <- c(p[1], diff(p))
   dfun <- function(x) {
