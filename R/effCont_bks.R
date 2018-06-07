@@ -1,18 +1,17 @@
-#' Continuous Effectiveness as Bounded Kernel-smoothed Distribution.
+#' Continuous Effectiveness as Beta Kernel-smoothed Distribution.
 #'
 #' Fits a bounded kernel-smoothed distribution to the given sample of scores. In particular, the
 #' beta kernel by Chen (1999) is used, as in \code{\link[bde]{chen99Kernel}}.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @return an object of class \code{eff.cont.bks}, which inherits from \code{eff.cont}.
-#'
-#' @examples
-#' @todo
-#'
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @author Julián Urbano, Thomas Nagler
-#' @references Chen, S. X. (1999). Beta kernel estimators for density functions. Computational
+#' @references Chen, S.X. (1999). Beta kernel estimators for density functions. Computational
 #'   Statistics & Data Analysis, 31, 131-145.
+#' @examples
+#' e <- effCont_bks(web2010ap[,1])
+#' c(e$mean, e$var)
+#' plot(e, plot.data = TRUE)
 #' @export
 effCont_bks <- function(x) {
   x_cap <- cap(x)

@@ -1,3 +1,15 @@
+#' Discrete Effectiveness as Beta-Binomial Distribution.
+#'
+#' Fits a discrete kernel-smoothed distribution, to the given sample of scores and support points.
+#'
+#' @param x a sample of effectiveness scores between 0 and 1.
+#' @param support the support of the distribution.
+#' @return an object of class \code{eff.disc.bbinom}, which inherits from \code{eff.disc}.
+#' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
+#' @examples
+#' e <- effDisc_bbinom(web2010p20[,1], seq(0,1,.05))
+#' c(e$mean, e$var)
+#' plot(e, plot.data = TRUE)
 #' @export
 effDisc_bbinom <- function(x, support) {
   support <- sort(support)
@@ -16,8 +28,8 @@ effDisc_bbinom <- function(x, support) {
                         start = list(alpha = shape1, beta = shape2),
                         lower = list(alpha = 1, beta = 1),
                         size = n)
-  shape1 <- as.numeric(fit$estimate[1])
-  shape2 <- as.numeric(fit$estimate[2])
+  shape1 <- unname(fit$estimate[1])
+  shape2 <- unname(fit$estimate[2])
 
   p <- extraDistr::pbbinom(support_i, n, shape1, shape2)
   e <- effDisc_new(p, support, 2, x)

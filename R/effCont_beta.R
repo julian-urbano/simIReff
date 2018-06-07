@@ -4,12 +4,11 @@
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @return an object of class \code{eff.cont.beta}, which inherits from \code{eff.cont}.
-#'
-#' @examples
-#' @todo
-#'
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @author Julián Urbano
+#' @examples
+#' e <- effCont_beta(web2010ap[,1])
+#' c(e$mean, e$var)
+#' plot(e, plot.data = TRUE)
 #' @export
 effCont_beta <- function(x) {
   x_cap <- cap(x)
@@ -23,8 +22,8 @@ effCont_beta <- function(x) {
   fit <- MASS::fitdistr(x_cap, densfun = "beta",
                         start = list(shape1 = shape1, shape2 = shape2),
                         lower = list(shape1 = 1, shape2 = 1))
-  shape1 <- as.numeric(fit$estimate[1])
-  shape2 <- as.numeric(fit$estimate[2])
+  shape1 <- unname(fit$estimate[1])
+  shape2 <- unname(fit$estimate[2])
 
   E <- shape1 / (shape1 + shape2) # expected value
   Var <- shape1 * shape2 / (shape1 + shape2)^2 / (shape1 + shape2 + 1) # variance

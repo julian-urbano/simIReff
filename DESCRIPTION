@@ -12,7 +12,9 @@ Imports:
   MASS,
   truncnorm,
   bde,
-  ks
+  ks,
+  np,
+  extraDistr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

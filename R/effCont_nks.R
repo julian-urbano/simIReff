@@ -1,16 +1,15 @@
-#' Continuous Effectiveness as Bounded Kernel-smoothed Distribution.
+#' Continuous Effectiveness as Truncated Gaussian Kernel-smoothed Distribution.
 #'
 #' Fits a kernel-smoothed distribution to the given sample of scores, truncated between 0 and 1, and
 #' using a gaussian kernel.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @return an object of class \code{eff.cont.nks}, which inherits from \code{eff.cont}.
-#'
-#' @examples
-#' @todo
-#'
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @author Julián Urbano, Thomas Nagler
+#' @examples
+#' e <- effCont_nks(web2010ap[,1])
+#' c(e$mean, e$var)
+#' plot(e, plot.data = TRUE)
 #' @export
 effCont_nks <- function(x) {
   # estimate

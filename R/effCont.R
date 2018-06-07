@@ -33,6 +33,7 @@ cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
 #' @examples
 #' effContMean(function(p) qnorm(p, mean = 4))
 #' effContMean(function(p) qbeta(p, 1, 2))
+#' @export
 effContMean <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
   integrate(qeff, lower = 0, upper = 1, abs.tol = abs.tol, subdivisions = subdivisions)$value
 }
@@ -50,6 +51,7 @@ effContMean <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
 #' @examples
 #' effContVar(function(p) dnorm(p, mean = 4), 4)
 #' effContVar(function(p) dbeta(p, 1, 2), 1/3)
+#' @export
 effContVar <- function(qeff, mu, abs.tol = 1e-6, subdivisions = 500) {
   # integrate(function(x) deff(x) * (x - mu)^2, lower = 0, upper = 1,
   #           abs.tol = abs.tol, subdivisions = subdivisions)$value

@@ -4,12 +4,11 @@
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @return an object of class \code{eff.cont.norm}, which inherits from \code{eff.cont}.
-#'
-#' @examples
-#' @todo
-#'
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @author Julián Urbano
+#' @examples
+#' e <- effCont_norm(web2010ap[,1])
+#' c(e$mean, e$var)
+#' plot(e, plot.data = TRUE)
 #' @export
 effCont_norm <- function(x) {
   # estimate parameters and truncated functions
@@ -21,11 +20,12 @@ effCont_norm <- function(x) {
   }, start = list(mu = mu0, sigma = sigma0),
   lower = list(mu = -Inf, sigma = .05),
   upper = list(mu = Inf, sigma = Inf))
-  mu <- as.numeric(fit$estimate[1])
-  sigma <- as.numeric(fit$estimate[2])
+  mu <- unname(fit$estimate[1])
+  sigma <- unname(fit$estimate[2])
 
   if(0 < mu - 6.0 * sigma || 1 > mu + 6.0 * sigma) {
-    # In these extre cases, truncnorm always return E=0.5 and Var=1/12, so try numerical integration
+    # In these extreme cases, truncnorm always return E=0.5 and Var=1/12,
+    # so try numerical integration
     E <- effContMean(function(p) truncnorm::qtruncnorm(p, a = 0, b = 1, mean = mu, sd = sigma),
       subdivisions = 1000)
     Var <- effContVar(function(p) truncnorm::qtruncnorm(p, a = 0, b = 1, mean = mu, sd = sigma),
