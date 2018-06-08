@@ -1,15 +1,42 @@
 #' Continuous Effectiveness Distributions
 #'
+#' Families to model effectiveness distributions with continuous support. Currently implemented
+#' families are:
+#' \tabular{rl}{
+#'   \code{\link{effCont_norm}} \tab Truncated Normal. \cr
+#'   \code{\link{effCont_beta}} \tab Beta. \cr
+#'   \code{\link{effCont_nks}} \tab Truncated Kernel-smoothed with Gaussian kernel. \cr
+#'   \code{\link{effCont_bks}} \tab Kernel-smoothed with Beta kernel.
+#' }
+#' @seealso \code{\link{effCont_fit}} to fit continuous distributions, and
+#'   \code{\link[=eff.cont-class]{eff.cont}} for the S3 class. For discrete distributions, see
+#'   \code{\link{effDisc}}.
+#' @name effCont
+NULL
+
+#' Class \code{eff.cont}
+#'
+#' This is the base S3 class for all continuous effectiveness distributions, which is itself a
+#' subclass of \code{\link{eff}}. Function \code{effCont_new} is the constructor of the class.
+#'
+#' A new distribution family is expected to build new objects through this constructor, and they
+#' must implement methods \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and
+#' \code{\link{reff}}.
+#'
+#' Functions \code{\link{effContMean}} and \code{\link{effContVar}} are helper functions for
+#' numerical approximation of the expected value and variance of a continuous distribution. Function
+#' \code{\link{effContTrunc}} can be used to truncate an arbitrary distribution between 0 and 1.
+#'
 #' @param mean the expected value of the distibution.
 #' @param var the variance of the distribution.
 #' @param df the effective degrees of freedom of the distribution.
-#' @param x the sample of effectiveness scores used to fit the distribution (defaults to
-#'   \code{NULL}).
+#' @param x the sample of effectiveness scores used to fit the distribution. Defaults to
+#'   \code{NULL}.
 #' @return an object of class \code{eff.cont}, which inherits from \code{eff}.
-#' @seealso \code{\link{effCont_fit}} to fit continuous distributions. For discrete distributions,
-#'   see \code{\link{effDisc}}.
-#' @export
-#' @name effCont
+#' @seealso \code{\link{effCont}} for a list of currently implemented distribution families, and
+#'   \code{\link{effCont_fit}} to fit distributions. For discrete distributions, see
+#'   \code{\link[=eff.disc-class]{eff.disc}}.
+#' @name eff.cont-class
 effCont_new <- function(mean, var, df, x = NULL) {
   e <- eff_new(mean, var, df, x)
   class(e) <- c("eff.cont", class(e))
@@ -30,6 +57,7 @@ cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
 #' @param abs.tol absolute accuracy requested, passed to \code{\link{integrate}}.
 #' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.
 #' @return the estimate of the expected value.
+#' @seealso \code{\link{effContVar}} and \code{\link{effContTrunc}}.
 #' @examples
 #' effContMean(function(p) qnorm(p, mean = 4))
 #' effContMean(function(p) qbeta(p, 1, 2))
@@ -48,6 +76,7 @@ effContMean <- function(qeff, abs.tol = 1e-6, subdivisions = 500) {
 #' @param abs.tol absolute accuracy requested, passed to \code{\link{integrate}}.
 #' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.
 #' @return the estimate of the expected value.
+#' @seealso \code{\link{effContMean}} and \code{\link{effContTrunc}}.
 #' @examples
 #' effContVar(function(p) dnorm(p, mean = 4), 4)
 #' effContVar(function(p) dbeta(p, 1, 2), 1/3)
@@ -73,6 +102,7 @@ effContVar <- function(qeff, mu, abs.tol = 1e-6, subdivisions = 500) {
 #'   \code{tp} \tab the truncated distribution function. \cr
 #'   \code{tq} \tab the truncated quantile function.
 #' }
+#' @seealso \code{\link{effContMean}} and \code{\link{effContVar}}.
 #' @examples
 #' tr <- effContTrunc(dnorm, pnorm, qnorm, mean = .8, sd = .3)
 #' x01 <- seq(0, 1, .01)

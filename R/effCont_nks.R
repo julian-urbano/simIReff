@@ -4,7 +4,8 @@
 #' using a gaussian kernel.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{eff.cont.nks}, which inherits from \code{eff.cont}.
+#' @return an object of class \code{eff.cont.nks}, which inherits from
+#'   \code{\link[=eff.cont-class]{eff.cont}}.
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
 #' @examples
 #' e <- effCont_nks(web2010ap[,1])

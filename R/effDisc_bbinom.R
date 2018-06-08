@@ -4,7 +4,8 @@
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @param support the support of the distribution.
-#' @return an object of class \code{eff.disc.bbinom}, which inherits from \code{eff.disc}.
+#' @return an object of class \code{eff.disc.bbinom}, which inherits from
+#'   \code{\link[=eff.disc-class]{eff.disc}}.
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
 #' @examples
 #' e <- effDisc_bbinom(web2010p20[,1], seq(0,1,.05))

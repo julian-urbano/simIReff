@@ -4,7 +4,8 @@
 #' beta kernel by Chen (1999) is used, as in \code{\link[bde]{chen99Kernel}}.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @return an object of class \code{eff.cont.bks}, which inherits from \code{eff.cont}.
+#' @return an object of class \code{eff.cont.bks}, which inherits from
+#'   \code{\link[=eff.cont-class]{eff.cont}}.
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
 #' @references Chen, S.X. (1999). Beta kernel estimators for density functions. Computational
 #'   Statistics & Data Analysis, 31, 131-145.
