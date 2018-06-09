@@ -1,31 +1,37 @@
 #' Model Selection for Effectiveness Distributions
 #'
-#' Functions to compute various \code{logLik} computes the log-likelihood for an effectiveness
-#' distribution, \code{AIC} computes the Akaike Information Criterion, and \code{BIC} computes the
-#' Bayesian Information Criterion.
-#'
-#' \code{effSelect} is a helper function for automatic selection from a given list of candidate
-#' models.
+#' Functions to compute the log-likelihood, the Akaike Information Criterion, and the Bayesian
+#' Information Criterion for an effectiveness distribution. \code{effSelect} and
+#' \code{which.effSelect} are helper function for automatic selection from a given list of
+#' candidates.
 #'
 #' @param effs the list of candidate distributions to select from.
 #' @param x the sample data. Defaults to the data from the first distribution.
 #' @param method selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.
 #' @param ... other parameters to the selection function.
-#' @return the index within \code{effs} of the selected disttribution, with an attribute
-#'   \code{score} containing the score of the selection method used.
-#'
+#' @return the selected disttribution (\code{effSelect}), or its index within \code{effs}
+#'   (\code{which.effSelect}).
+#' @seealso \code{\link{logLik}}, \code{\link{AIC}}, \code{\link{BIC}} for details on model
+#'   selection. See \code{\link{effFitAndSelect}} to fit and select automatically.
 #' @examples
-#' @todo
+#' ee <- effContFit(web2010ap[,1])
+#' e <- effSelect(ee, method = "BIC")
+#' e2 <- ee[[which.effSelect(ee, method = "BIC")]] # same as e
 #'
+#' logLik(e)
+#' logLik(e, web2010ap[,2])
 #' @export
-effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", ...) {
+effSelect <- function(effs, x, method = "AIC", ...) {
   i <- which.effSelect(effs, x, method, ...)
   effs[[i]]
 }
-#' @todo
-#'
+
 #' @export
-which.effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", ...) {
+#' @rdname effSelect
+which.effSelect <- function(effs, x, method = "AIC", ...) {
+  if(missing(x))
+    x <- effs[[1]]$data
+
   method <- match.arg(method, c("AIC", "BIC", "logLik"))
 
   FUN <- switch(method,
@@ -38,10 +44,11 @@ which.effSelect <- function(effs, x = effs[[1]]$data, method = "AIC", ...) {
   structure(i, score = scores[i])
 }
 
-
 #' @rdname effSelect
 #' @export
-logLik.eff <- function(.eff, x = .eff$data, ...) {
+logLik.eff <- function(.eff, x, ...) {
+  if(missing(x))
+    x <- .eff$data
   stopifnot(!is.null(x))
 
   ll <- sum(log(deff(x, .eff)))
@@ -50,14 +57,14 @@ logLik.eff <- function(.eff, x = .eff$data, ...) {
 
 #' @rdname effSelect
 #' @export
-AIC.eff <- function(.eff, x = .eff$data, k = 2, ...) {
+AIC.eff <- function(.eff, x, k = 2, ...) {
   ll <- logLik(.eff, x)
   k * attr(ll, "df") - 2 * as.numeric(ll)
 }
 
 #' @rdname effSelect
 #' @export
-BIC.eff <- function(.eff, x = .eff$data, ...) {
+BIC.eff <- function(.eff, x, ...) {
   ll <- logLik(.eff, x)
   log(attr(ll, "nobs")) * attr(ll, "df") - 2 * as.numeric(ll)
 }
