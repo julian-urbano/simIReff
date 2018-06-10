@@ -14,7 +14,8 @@ Imports:
   bde,
   ks,
   np,
-  extraDistr
+  extraDistr,
+  rvinecopulib
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

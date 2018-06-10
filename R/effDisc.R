@@ -70,6 +70,40 @@ matchTol <- Vectorize(function(x, table, tol = 1e-4) {
     return(NA)
 }, vectorize.args = "x", SIMPLIFY = TRUE)
 
+#' Support of Typical Discrete Effectiveness Measures
+#'
+#' Obtain the discrete support defined by an effectiveness measure given its name.
+#'
+#' Current measures are Reciprocal Rank (\code{"RR"}), and Precision at k (\code{"P@k"}, where
+#' \code{k} is the cutoff, eg. \code{"P@10"}).
+#'
+#' @param measure the case insensitive name of the effectiveness measure. See Details.
+#' @param runLength the maximum number of documents retrieved for a query (defautls to 1000).
+#' @return the support of the distribution of scores defined by the measure.
+#'
+#' @seealso \code{\link{effDisc}}.
+#'
+#' @examples
+#' supportOf("rr")
+#' supportOf("rr", runLength = 10)
+#' supportOf("p@10")
+#' supportOf("p@20")
+#' @export
+support <- function(measure, runLength = 1000) {
+  stopifnot(is.character(measure) && length(measure)==1)
+
+  measure <- tolower(measure)
+
+  s <- if(measure == "rr") { # reciprocal rank
+    c(0, 1/runLength:1)
+  }else if(grepl("^p@?(\\d+)$", measure)) { # precision at k
+    cutoff <- as.numeric(gsub("^p@?(\\d+)$", "\\1", measure))
+    0:cutoff / cutoff
+  }else stop("invalid measure")
+
+  s
+}
+
 #' @export
 deff.eff.disc <- function(x, .eff) {
   .eff$dfun(x)
