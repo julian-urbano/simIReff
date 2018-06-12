@@ -1,3 +1,30 @@
+#' Transform effectiveness distributions towards a expected value
+#'
+#' Transforms the given effectiveness distribution such that its expected value matches a predefined
+#' value. For details, please refer to section 3.4 of (Urbano and Nagler, 2018).
+#'
+#' \code{effTransformAll} does the same but for a list of distributions and target means.
+#'
+#' @param eff the distribution to transform.
+#' @param mean the target expected value to transform to. If missing, defaults to the mean in the
+#'   data used to fit \code{eff}, if any.
+#' @param abs.tol the absolute tolerance of the transformation.
+#' @return an effectiveness distribution of class \code{eff.cont.trans} or \code{eff.disc.trans},
+#'   depending on the type of distribution.
+#' @references J. Urbano and T. Nagler. (2018). Stochastic Simulation of Test Collections:
+#'   Evaluation Scores. ACM SIGIR.
+#' @examples
+#' e <- effCont_beta(web2010ap[,1])
+#' e2 <- effTransform(e, 0.12)
+#' c(e$mean, e2$mean)
+#' plot(e)
+#' plot(e2)
+#'
+#' # transform a list of distributions to the observed means
+#' ee <- effContFitAndSelect(web2010ap[,1:5])
+#' obsmeans <- colMeans(web2010ap[,1:5])
+#' sapply(ee, function(e)e$mean) - obsmeans
+#' sapply(ee2, function(e)e$mean) - obsmeans
 #' @export
 effTransform <- function(eff, mean, abs.tol = 1e-5) {
   m <- base::mean(eff$data)
@@ -18,6 +45,7 @@ effTransform <- function(eff, mean, abs.tol = 1e-5) {
   effTransform_inner(eff, opt$par[1], opt$par[2])
 }
 
+#' @rdname effTransform
 #' @export
 effTransformAll <- function(effs, means, silent = TRUE, ...) {
   if(missing(means))
@@ -29,7 +57,7 @@ effTransformAll <- function(effs, means, silent = TRUE, ...) {
   for(i in seq_along(effs)) {
     e <- try(effTransform(effs[[i]], mean = means[i], ...), silent = silent)
 
-    if(class(e) != "try-error")
+    if(!inherits(e, "try-error"))
       teffs[[i]] <- e
   }
 

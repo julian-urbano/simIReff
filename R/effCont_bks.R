@@ -1,7 +1,7 @@
 #' Continuous Effectiveness as Beta Kernel-smoothed Distribution.
 #'
 #' Fits a bounded kernel-smoothed distribution to the given sample of scores. In particular, the
-#' beta kernel by Chen (1999) is used, as in \code{\link[bde]{chen99Kernel}}.
+#' beta kernel by Chen (1999) is used, as in \code{\link[bde]{Chen99Kernel}}.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
 #' @return an object of class \code{eff.cont.bks}, which inherits from
