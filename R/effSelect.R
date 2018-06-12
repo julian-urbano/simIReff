@@ -12,7 +12,9 @@
 #' @return the selected disttribution (\code{effSelect}), or its index within \code{effs}
 #'   (\code{which.effSelect}).
 #' @seealso \code{\link{logLik}}, \code{\link{AIC}}, \code{\link{BIC}} for details on model
-#'   selection. See \code{\link{effFitAndSelect}} to fit and select automatically.
+#'   selection.
+#'
+#'   See \code{\link{effFitAndSelect}} to fit and select automatically.
 #' @examples
 #' ee <- effContFit(web2010ap[,1])
 #' e <- effSelect(ee, method = "BIC")

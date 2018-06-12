@@ -10,6 +10,7 @@
 #' @param silent logical: should the report of error messages be suppressed?
 #' @return a list of \code{\link[=eff.cont-class]{eff.cont}} objects fitted to the given data.
 #' @seealso \code{\link{effCont}} and \code{\link{effDisc}} for the available distribution families.
+#'
 #'   See \code{\link{effSelect}} for model selection, and \code{\link{effFitAndSelect}} to fit and
 #'   select automatically.
 #' @examples

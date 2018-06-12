@@ -15,24 +15,32 @@ NULL
 #' Class \code{eff.disc}
 #'
 #' This is the base S3 class for all discrete effectiveness distributions, which is itself a
-#' subclass of \code{\link{eff}}. Function \code{effDisc_new} is the constructor of the class.
+#' subclass of \code{eff}. Function \code{effDisc_new} is the constructor of the class.
 #'
 #' A new distribution family is expected to build new objects through this constructor. Default
 #' implementations are readily available for methods \code{\link{deff}}, \code{\link{peff}},
 #' \code{\link{qeff}} and \code{\link{reff}}.
-#'
-#' Function \code{\link{matchTol}} is a helper function to match observed scores with their
-#' corresponding support values.
 #'
 #' @param p the values of the distribution function at the support points.
 #' @param support the support of the distribution.
 #' @param df the effective degrees of freedom of the distribution.
 #' @param x the sample of effectiveness scores used to fit the distribution. Defaults to
 #'   \code{NULL}.
-#' @return an object of class \code{eff.disc}, which inherits from \code{eff}.
+#' @return an object of class \code{eff.disc}, with the following components:
+#' \tabular{rl}{
+#'   \code{mean} \tab the expected value. \cr
+#'   \code{var} \tab the variance. \cr
+#'   \code{df} \tab the degrees of freedom (effective number of parameters) for
+#'     \link[=effSelect]{model selection}. \cr
+#'   \code{support} \tab the support of the distribution. \cr
+#'   \code{data} \tab the sample data used to fit the distribution, or \code{NULL} if none. \cr
+#'   \code{model} \tab a list with the family-specific data. \cr
+#' }
 #' @seealso \code{\link{effDisc}} for a list of currently implemented distribution families,
 #'   \code{\link{effDiscFit}} to fit distributions, and \code{\link{effDisc-helper}} for helper
-#'   functions. For continuous distributions, see \code{\link[=eff.cont-class]{eff.cont}}.
+#'   functions.
+#'
+#'   For continuous distributions, see \code{\link[=eff.cont-class]{eff.cont}}.
 #' @name eff.disc-class
 effDisc_new <- function(p, support, df, x = NULL) {
   d <- c(p[1], diff(p))
