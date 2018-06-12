@@ -6,7 +6,7 @@
 #' error.
 #'
 #' @param x a sample of effectiveness scores between 0 and 1.
-#' @param support the support of the distribution.
+#' @param support the support of the distribution (see \code{\link{support}}).
 #' @param silent logical: should the report of error messages be suppressed?
 #' @return a list of \code{\link[=eff.cont-class]{eff.cont}} objects fitted to the given data.
 #' @seealso \code{\link{effCont}} and \code{\link{effDisc}} for the available distribution families.

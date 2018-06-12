@@ -6,7 +6,7 @@
 #'   \code{\link{effDisc_bbinom}} \tab Beta-Binomial \cr
 #'   \code{\link{effDisc_dks}} \tab Kernel-smoothed with Discrete kernel.
 #' }
-#' @seealso \code{\link{effDisc_fit}} to fit discrete distributions, and
+#' @seealso \code{\link{effDiscFit}} to fit discrete distributions, and
 #'   \code{\link[=eff.disc-class]{eff.disc}} for the S3 class. For continuous distributions, see
 #'   \code{\link{effCont}}.
 #' @name effDisc
@@ -30,9 +30,9 @@ NULL
 #' @param x the sample of effectiveness scores used to fit the distribution. Defaults to
 #'   \code{NULL}.
 #' @return an object of class \code{eff.disc}, which inherits from \code{eff}.
-#' @seealso \code{\link{effDisc}} for a list of currently implemented distribution families, and
-#'   \code{\link{effDisc_fit}} to fit distributions. For continuous distributions, see
-#'   \code{\link[=eff.cont-class]{eff.cont}}.
+#' @seealso \code{\link{effDisc}} for a list of currently implemented distribution families,
+#'   \code{\link{effDiscFit}} to fit distributions, and \code{\link{effDisc-helper}} for helper
+#'   functions. For continuous distributions, see \code{\link[=eff.cont-class]{eff.cont}}.
 #' @name eff.disc-class
 effDisc_new <- function(p, support, df, x = NULL) {
   d <- c(p[1], diff(p))
@@ -57,51 +57,6 @@ effDisc_new <- function(p, support, df, x = NULL) {
   e$qfun <- qfun
   class(e) <- c("eff.disc", class(e))
   e
-}
-
-#' Match an observation x to its corresponding support value, within tolerance.
-#' @export
-matchTol <- Vectorize(function(x, table, tol = 1e-4) {
-  err <- abs(table - x)
-  i <- which.min(err)
-  if(err[i] <= tol)
-    return(i)
-  else
-    return(NA)
-}, vectorize.args = "x", SIMPLIFY = TRUE)
-
-#' Support of Typical Discrete Effectiveness Measures
-#'
-#' Obtain the discrete support defined by an effectiveness measure given its name.
-#'
-#' Current measures are Reciprocal Rank (\code{"RR"}), and Precision at k (\code{"P@k"}, where
-#' \code{k} is the cutoff, eg. \code{"P@10"}).
-#'
-#' @param measure the case insensitive name of the effectiveness measure. See Details.
-#' @param runLength the maximum number of documents retrieved for a query (defautls to 1000).
-#' @return the support of the distribution of scores defined by the measure.
-#'
-#' @seealso \code{\link{effDisc}}.
-#'
-#' @examples
-#' supportOf("rr")
-#' supportOf("rr", runLength = 10)
-#' supportOf("p@10")
-#' supportOf("p@20")
-#' @export
-support <- function(measure, runLength = 1000) {
-  stopifnot(is.character(measure) && length(measure)==1)
-
-  measure <- tolower(measure)
-
-  s <- if(measure == "rr") { # reciprocal rank
-    c(0, 1/runLength:1)
-  }else if(grepl("^p@?(\\d+)$", measure)) { # precision at k
-    cutoff <- as.numeric(gsub("^p@?(\\d+)$", "\\1", measure))
-    0:cutoff / cutoff
-  }else stop("invalid measure")
-
-  s
 }
 
 #' @export

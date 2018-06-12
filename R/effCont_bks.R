@@ -7,7 +7,7 @@
 #' @return an object of class \code{eff.cont.bks}, which inherits from
 #'   \code{\link[=eff.cont-class]{eff.cont}}.
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @references Chen, S.X. (1999). Beta kernel estimators for density functions. Computational
+#' @references S.X. Chen (1999). Beta kernel estimators for density functions. Computational
 #'   Statistics & Data Analysis, 31, 131-145.
 #' @examples
 #' e <- effCont_bks(web2010ap[,1])

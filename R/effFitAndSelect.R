@@ -2,7 +2,7 @@
 #'
 #' @param x a sample of effectiveness scores between 0 and 1, or a matrix or data frame of
 #'   topic-by-system scores.
-#' @param support the support of the distribution.
+#' @param support the support of the distribution (see \code{\link{support}}).
 #' @param method selection method. See \code{\link{effSelect}}.
 #' @param silent logical: should the report of error messages be suppressed?
 #' @return if \code{x} is a vector, the selected disttribution. If \code{x} is a matrix or data
