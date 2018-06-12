@@ -8,7 +8,7 @@
 #' @return an object of class \code{eff.disc.dks}, which inherits from
 #'   \code{\link[=eff.disc-class]{eff.disc}}.
 #' @seealso \code{\link{deff}}, \code{\link{peff}}, \code{\link{qeff}} and \code{\link{reff}}.
-#' @references Wang, M.C. and Ryzing, J.V. (1981). A Class of Smooth Estimators for Discrete
+#' @references M.C. Wang and J.V. Ryzing (1981). A Class of Smooth Estimators for Discrete
 #'   Distributions. Biometrika, 68, 301-309.
 #' @examples
 #' e <- effDisc_dks(web2010p20[,1], seq(0,1,.05))

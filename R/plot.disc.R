@@ -1,11 +1,25 @@
 #' Plotting tools for Discrete effectiveness distributions
 #'
+#' Plot the density, distribution and quantile functions of a discrete effectiveness distribution.
+#'
+#' @param .eff the effectiveness distribution to plot.
+#' @param plot.data logical: whether to plot the data used to fit the distribution, if any.
+#' @param xlab the title for the x axis.
+#' @param ylab the title for the y axis.
+#' @param main the overall title for the plot.
+#' @param ... arguments to be passed to \code{\link[graphics]{lines}}.
+#' @seealso \code{\link{plot.eff.cont}} for continuous distributions.
+#' @name plot.eff.disc
+NULL
+
 #' @rdname plot.eff.disc
 #' @export
-dplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
+dplot.eff.disc <- function(.eff, plot.data = TRUE,
                            xlab = "x", ylab = "f(x)", main = "mass", ...) {
-  if(plot.data && is.null(.eff$data))
-    stop("no data to plot.")
+  if(plot.data && is.null(.eff$data)) {
+    warning("no data to plot.")
+    plot.data <- FALSE
+  }
 
   x <- .eff$support
   y <- deff(x, .eff)
@@ -15,38 +29,31 @@ dplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
     ylim = range(ylim, y_data)
   }
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim)
+  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim, ...)
   abline(h = 0, col = col.data, lty = 2)
 
   if(plot.data) {
     lines(x, y_data, type = "b", col = col.data, pch = 19)
-    # sapply(seq_along(x), function(i) {
-    #
-    #   lines(rep(x[i], 2), c(0, y_data[i]), col = col.data)
-    #   points(x[i], y_data[i], pch = 19, col = col.data)
-    # })
     rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(x, y, type = "b", pch = 19)
-  # sapply(seq_along(x), function(i) {
-  #   lines(rep(x[i],2), c(0, y[i]))
-  #   points(x[i],y[i],pch=19)
-  # })
-  rug(.eff$mean, side = 1)
+  lines(x, y, type = "b", pch = 19, ...)
+  rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.disc
 #' @export
-pplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
+pplot.eff.disc <- function(.eff, plot.data = TRUE,
                            xlab = "q", ylab = "F(q)", main = "distribution", ...) {
-  if(plot.data && is.null(.eff$data))
-    stop("no data to plot.")
+  if(plot.data && is.null(.eff$data)) {
+    warning("no data to plot.")
+    plot.data <- FALSE
+  }
 
   x <- .eff$support
   y <- peff(x, .eff)
   pfun <- stepfun(x, c(0, y), ties = "ordered")
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1)
+  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
   abline(h = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
@@ -54,21 +61,23 @@ pplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
     rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(pfun, verticals = FALSE, pch = 19, cex = 1)
-  rug(.eff$mean, side = 1)
+  lines(pfun, verticals = FALSE, pch = 19, cex = 1, ...)
+  rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.disc
 #' @export
-qplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
+qplot.eff.disc <- function(.eff, plot.data = TRUE,
                            xlab = "p", ylab = expression(F^-1*(p)), main = "quantile", ...) {
-  if(plot.data && is.null(.eff$data))
-    stop("no data to plot.")
+  if(plot.data && is.null(.eff$data)) {
+    warning("no data to plot.")
+    plot.data <- FALSE
+  }
 
   x <- .eff$support
   y <- peff(x, .eff)
   qfun <- stepfun(y[-length(y)], x, right = TRUE, ties = "ordered")
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1)
+  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
   abline(v = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
@@ -79,6 +88,6 @@ qplot.eff.disc <- function(.eff, plot.data = FALSE, col.data = "grey70",
     rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(qfun, pch = 19, cex = 1, verticals = FALSE)
-  rug(.eff$mean, side = 2)
+  lines(qfun, pch = 19, cex = 1, verticals = FALSE, ...)
+  rug(.eff$mean, side = 2, ...)
 }
