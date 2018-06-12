@@ -6,9 +6,13 @@
 #' \code{effTransformAll} does the same but for a list of distributions and target means.
 #'
 #' @param eff the distribution to transform.
+#' @param effs the list of distributions to transform.
 #' @param mean the target expected value to transform to. If missing, defaults to the mean in the
 #'   data used to fit \code{eff}, if any.
+#' @param means the vector of target expected values to transform to. If missing, defaults to the
+#'   means in the data used to fit \code{effs}, if any.
 #' @param abs.tol the absolute tolerance of the transformation.
+#' @param silent logical: should the report of error messages be suppressed?
 #' @return an effectiveness distribution of class \code{eff.cont.trans} or \code{eff.disc.trans},
 #'   depending on the type of distribution.
 #' @references J. Urbano and T. Nagler. (2018). Stochastic Simulation of Test Collections:
@@ -22,6 +26,7 @@
 #'
 #' # transform a list of distributions to the observed means
 #' ee <- effContFitAndSelect(web2010ap[,1:5])
+#' ee2 <- effTransformAll(ee)
 #' obsmeans <- colMeans(web2010ap[,1:5])
 #' sapply(ee, function(e)e$mean) - obsmeans
 #' sapply(ee2, function(e)e$mean) - obsmeans
@@ -47,7 +52,7 @@ effTransform <- function(eff, mean, abs.tol = 1e-5) {
 
 #' @rdname effTransform
 #' @export
-effTransformAll <- function(effs, means, silent = TRUE, ...) {
+effTransformAll <- function(effs, means, abs.tol = 1e-5, silent = TRUE) {
   if(missing(means))
     means <- sapply(effs, function(e) mean(e$data))
 
@@ -55,7 +60,7 @@ effTransformAll <- function(effs, means, silent = TRUE, ...) {
   teffs <- as.list(rep(NA, length(effs)))
 
   for(i in seq_along(effs)) {
-    e <- try(effTransform(effs[[i]], mean = means[i], ...), silent = silent)
+    e <- try(effTransform(effs[[i]], mean = means[i], abs.tol), silent = silent)
 
     if(!inherits(e, "try-error"))
       teffs[[i]] <- e

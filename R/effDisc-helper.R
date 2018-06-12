@@ -12,6 +12,7 @@
 #'
 #' @param x a vector of effectiveness scores.
 #' @param support the support of the distribution.
+#' @param tol tolerance for matching.
 #' @param measure the case insensitive name of the effectiveness measure. See Details.
 #' @param runLength the maximum number of documents retrieved for a query (defautls to 1000).
 #' @return \code{matchTol}: an integer vector giving the position in the support of the match if
@@ -20,10 +21,10 @@
 #'   \code{support}: the support of the distribution of scores defined by the measure.
 #' @seealso \code{\link[=eff.disc-class]{eff.disc}}.
 #' @examples
-#' supportOf("rr")
-#' supportOf("rr", runLength = 10)
-#' supportOf("p@10")
-#' supportOf("p20")
+#' support("rr")
+#' support("rr", runLength = 10)
+#' support("p@10")
+#' support("p20")
 #'
 #' (i <- matchTol(c(.1, .4, .41, .40001), support("p10")))
 #' support("p10")[i]

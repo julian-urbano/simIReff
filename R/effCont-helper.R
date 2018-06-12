@@ -13,9 +13,12 @@
 #' \code{effContTrun} computes the density, distribution and quantile functions of the distribution
 #' resulting from truncating a given distribution between 0 and 1.
 #'
-#' @param deff a density function.
-#' @param peff a distribution function.
-#' @param qeff a quantile function.
+#' @param x a sample of effectiveness scores.
+#' @param xmin lowest value to cap scores.
+#' @param xmax highest value to cap scores.
+#' @param dfun a density function.
+#' @param pfun a distribution function.
+#' @param qfun a quantile function.
 #' @param mu the expected value of the distribution (see \code{effContMean}).
 #' @param abs.tol absolute accuracy requested, passed to \code{\link{integrate}}.
 #' @param subdivisions the maximum number of subintervals, passed to \code{\link{integrate}}.
@@ -49,7 +52,6 @@
 #' plot(x01, tr$q(x01), type = "l")
 #' @name effCont-helper
 NULL
-
 
 #' @rdname effCont-helper
 #' @export

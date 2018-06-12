@@ -5,9 +5,11 @@
 #' \code{which.effSelect} are helper function for automatic selection from a given list of
 #' candidates.
 #'
+#' @param .eff an effectiveness distribution.
 #' @param effs the list of candidate distributions to select from.
 #' @param x the sample data. Defaults to the data from the first distribution.
 #' @param method selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.
+#' @param k the penalty per parameter to be used; the default \code{k = 2} is the classical AIC.
 #' @param ... other parameters to the selection function.
 #' @return the selected disttribution (\code{effSelect}), or its index within \code{effs}
 #'   (\code{which.effSelect}).

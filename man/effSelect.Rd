@@ -26,6 +26,10 @@ which.effSelect(effs, x, method = "AIC", ...)
 \item{method}{selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.}
 
 \item{...}{other parameters to the selection function.}
+
+\item{.eff}{an effectiveness distribution.}
+
+\item{k}{the penalty per parameter to be used; the default \code{k = 2} is the classical AIC.}
 }
 \value{
 the selected disttribution (\code{effSelect}), or its index within \code{effs}

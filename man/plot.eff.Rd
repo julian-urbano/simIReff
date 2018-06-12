@@ -19,6 +19,8 @@ qplot(.eff, plot.data = TRUE, ...)
 \item{.eff}{the effectiveness distribution to plot.}
 
 \item{plot.data}{logical: whether to plot the data used to fit the distribution, if any.}
+
+\item{...}{other arguments to be passed to graphical functions.}
 }
 \description{
 Plot the density, distribution and quantile functions of an effectiveness distribution. Function

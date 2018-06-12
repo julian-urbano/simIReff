@@ -7,7 +7,7 @@
 \usage{
 effTransform(eff, mean, abs.tol = 1e-05)
 
-effTransformAll(effs, means, silent = TRUE, ...)
+effTransformAll(effs, means, abs.tol = 1e-05, silent = TRUE)
 }
 \arguments{
 \item{eff}{the distribution to transform.}
@@ -16,6 +16,13 @@ effTransformAll(effs, means, silent = TRUE, ...)
 data used to fit \code{eff}, if any.}
 
 \item{abs.tol}{the absolute tolerance of the transformation.}
+
+\item{effs}{the list of distributions to transform.}
+
+\item{means}{the vector of target expected values to transform to. If missing, defaults to the
+means in the data used to fit \code{effs}, if any.}
+
+\item{silent}{logical: should the report of error messages be suppressed?}
 }
 \value{
 an effectiveness distribution of class \code{eff.cont.trans} or \code{eff.disc.trans},
@@ -37,6 +44,7 @@ plot(e2)
 
 # transform a list of distributions to the observed means
 ee <- effContFitAndSelect(web2010ap[,1:5])
+ee2 <- effTransformAll(ee)
 obsmeans <- colMeans(web2010ap[,1:5])
 sapply(ee, function(e)e$mean) - obsmeans
 sapply(ee2, function(e)e$mean) - obsmeans

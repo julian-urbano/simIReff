@@ -15,6 +15,8 @@ support(measure, runLength = 1000)
 
 \item{support}{the support of the distribution.}
 
+\item{tol}{tolerance for matching.}
+
 \item{measure}{the case insensitive name of the effectiveness measure. See Details.}
 
 \item{runLength}{the maximum number of documents retrieved for a query (defautls to 1000).}
@@ -38,10 +40,10 @@ Current measures are Reciprocal Rank (\code{"RR"}), and Precision at k (\code{"P
 \code{"Pk"}, where \code{k} is the cutoff, eg. \code{"P@10"} or \code{"P10"}).
 }
 \examples{
-supportOf("rr")
-supportOf("rr", runLength = 10)
-supportOf("p@10")
-supportOf("p20")
+support("rr")
+support("rr", runLength = 10)
+support("p@10")
+support("p20")
 
 (i <- matchTol(c(.1, .4, .41, .40001), support("p10")))
 support("p10")[i]

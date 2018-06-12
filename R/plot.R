@@ -8,6 +8,7 @@ col.data <- "grey70"
 #'
 #' @param .eff the effectiveness distribution to plot.
 #' @param plot.data logical: whether to plot the data used to fit the distribution, if any.
+#' @param ... other arguments to be passed to graphical functions.
 #' @seealso \code{\link{plot.eff.cont}} and \code{\link{plot.eff.disc}} for more details.
 #' @export
 plot.eff <- function(.eff, plot.data = TRUE, ...) {

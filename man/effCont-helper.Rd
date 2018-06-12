@@ -17,19 +17,25 @@ effContVar(qfun, mu, abs.tol = 1e-06, subdivisions = 500)
 effContTrunc(dfun, pfun, qfun, ...)
 }
 \arguments{
+\item{x}{a sample of effectiveness scores.}
+
+\item{xmin}{lowest value to cap scores.}
+
+\item{xmax}{highest value to cap scores.}
+
+\item{qfun}{a quantile function.}
+
 \item{abs.tol}{absolute accuracy requested, passed to \code{\link{integrate}}.}
 
 \item{subdivisions}{the maximum number of subintervals, passed to \code{\link{integrate}}.}
 
 \item{mu}{the expected value of the distribution (see \code{effContMean}).}
 
+\item{dfun}{a density function.}
+
+\item{pfun}{a distribution function.}
+
 \item{...}{additional arguments passed to other functions, if any.}
-
-\item{deff}{a density function.}
-
-\item{peff}{a distribution function.}
-
-\item{qeff}{a quantile function.}
 }
 \value{
 \code{cap}: the original vector, but censored.
