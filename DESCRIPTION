@@ -1,10 +1,15 @@
 Package: simIReff
 Type: Package
 Title: Stochastic Simulation for Information Retrieval Evaluation: Effectiveness Scores
-Version: 0.0.0
+Version: 1.0
 Authors@R: c(person("Julián", "Urbano", email = "urbano.julian@gmail.com", role = c("aut", "cre")),
              person("Thomas", "Nagler", email = "thomas.nagler@tum.de", role = c("ctb")))
-Description: TODO.
+Description: Provides tools for the stochastic simulation of effectiveness scores to mitigate
+  data-related limitations of Information Retrieval evaluation research, as described in Urbano and
+  Nagler (2018) <doi:10.1145/3209978.3210043>. These tools include: fitting, selection and plotting
+  distributions to model system effectiveness, transformation towards a prespecified expected value,
+  proxy to fitting of copula models based on these distributions, and simulation of new evaluation
+  data from these distributions and copula models.
 BugReports: https://github.com/julian-urbano/simIReff/issues
 URL: https://github.com/julian-urbano/simIReff/
 Depends: R (>= 3.2)
