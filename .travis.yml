@@ -5,4 +5,4 @@ sudo: false
 cache: packages
 r:
   - devel
-  - 3.2
+  - 3.4.0
