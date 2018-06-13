@@ -12,17 +12,17 @@ Description: Provides tools for the stochastic simulation of effectiveness score
   data from these distributions and copula models.
 BugReports: https://github.com/julian-urbano/simIReff/issues
 URL: https://github.com/julian-urbano/simIReff/
-Depends: R (>= 3.4.0)
+Depends: R (>= 3.4)
 Imports:
   stats,
   graphics,
   MASS,
+  rvinecopulib (>= 0.2.8.1.0),
   truncnorm,
   bde,
   ks,
   np,
-  extraDistr,
-  rvinecopulib (>= 0.2.8.1.0)
+  extraDistr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
