@@ -4,32 +4,22 @@
 \alias{effSelect}
 \alias{which.effSelect}
 \alias{logLik.eff}
-\alias{AIC.eff}
-\alias{BIC.eff}
 \title{Model Selection for Effectiveness Distributions}
 \usage{
-effSelect(effs, x, method = "AIC", ...)
+effSelect(effs, method = "AIC", ...)
 
-which.effSelect(effs, x, method = "AIC", ...)
+which.effSelect(effs, method = "AIC", ...)
 
-\method{logLik}{eff}(.eff, x, ...)
-
-\method{AIC}{eff}(.eff, x, k = 2, ...)
-
-\method{BIC}{eff}(.eff, x, ...)
+\method{logLik}{eff}(.eff, ...)
 }
 \arguments{
 \item{effs}{the list of candidate distributions to select from.}
-
-\item{x}{the sample data. Defaults to the data from the first distribution.}
 
 \item{method}{selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.}
 
 \item{...}{other parameters to the selection function.}
 
 \item{.eff}{an effectiveness distribution.}
-
-\item{k}{the penalty per parameter to be used; the default \code{k = 2} is the classical AIC.}
 }
 \value{
 the selected disttribution (\code{effSelect}), or its index within \code{effs}
@@ -42,12 +32,13 @@ Information Criterion for an effectiveness distribution. \code{effSelect} and
 candidates.
 }
 \examples{
-ee <- effContFit(web2010ap[,1])
+ee <- effContFit(web2010ap[,5])
 e <- effSelect(ee, method = "BIC")
 e2 <- ee[[which.effSelect(ee, method = "BIC")]] # same as e
 
 logLik(e)
-logLik(e, web2010ap[,2])
+AIC(e, k=4)
+BIC(e)
 }
 \seealso{
 \code{\link{logLik}}, \code{\link{AIC}}, \code{\link{BIC}} for details on model

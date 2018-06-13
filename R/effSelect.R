@@ -7,9 +7,7 @@
 #'
 #' @param .eff an effectiveness distribution.
 #' @param effs the list of candidate distributions to select from.
-#' @param x the sample data. Defaults to the data from the first distribution.
 #' @param method selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.
-#' @param k the penalty per parameter to be used; the default \code{k = 2} is the classical AIC.
 #' @param ... other parameters to the selection function.
 #' @return the selected disttribution (\code{effSelect}), or its index within \code{effs}
 #'   (\code{which.effSelect}).
@@ -18,57 +16,35 @@
 #'
 #'   See \code{\link{effFitAndSelect}} to fit and select automatically.
 #' @examples
-#' ee <- effContFit(web2010ap[,1])
+#' ee <- effContFit(web2010ap[,5])
 #' e <- effSelect(ee, method = "BIC")
 #' e2 <- ee[[which.effSelect(ee, method = "BIC")]] # same as e
 #'
 #' logLik(e)
-#' logLik(e, web2010ap[,2])
+#' AIC(e, k=4)
+#' BIC(e)
 #' @export
-effSelect <- function(effs, x, method = "AIC", ...) {
-  i <- which.effSelect(effs, x, method, ...)
+effSelect <- function(effs, method = "AIC", ...) {
+  i <- which.effSelect(effs, method, ...)
   effs[[i]]
 }
 
 #' @export
 #' @rdname effSelect
-which.effSelect <- function(effs, x, method = "AIC", ...) {
-  if(missing(x))
-    x <- effs[[1]]$data
-
+which.effSelect <- function(effs, method = "AIC", ...) {
   method <- match.arg(method, c("AIC", "BIC", "logLik"))
+  FUN <- get(method)
 
-  FUN <- switch(method,
-                AIC = AIC.eff,
-                BIC = BIC.eff,
-                logLik = logLik.eff)
-
-  scores <- sapply(effs, FUN, x = x, ...)
+  scores <- sapply(effs, FUN, ...)
   i <- ifelse(method == "logLik", which.max(scores), which.min(scores))
   structure(i, score = scores[i])
 }
 
 #' @rdname effSelect
 #' @export
-logLik.eff <- function(.eff, x, ...) {
-  if(missing(x))
-    x <- .eff$data
-  stopifnot(!is.null(x))
+logLik.eff <- function(.eff, ...) {
+  stopifnot(!is.null(.eff$data))
 
-  ll <- sum(log(deff(x, .eff)))
-  structure(ll, class = "logLik", df = .eff$df, nobs = length(x))
-}
-
-#' @rdname effSelect
-#' @export
-AIC.eff <- function(.eff, x, k = 2, ...) {
-  ll <- logLik(.eff, x)
-  k * attr(ll, "df") - 2 * as.numeric(ll)
-}
-
-#' @rdname effSelect
-#' @export
-BIC.eff <- function(.eff, x, ...) {
-  ll <- logLik(.eff, x)
-  log(attr(ll, "nobs")) * attr(ll, "df") - 2 * as.numeric(ll)
+  ll <- sum(log(deff(.eff$data, .eff)))
+  structure(ll, class = "logLik", df = .eff$df, nobs = length(.eff$data))
 }

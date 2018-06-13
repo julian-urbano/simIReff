@@ -23,7 +23,7 @@ effContFitAndSelect <- function(x, method = "AIC", silent = TRUE){
     apply(x, 2, effContFitAndSelect, method = method, silent = silent)
   } else {
     effs <- effContFit(x, silent)
-    effSelect(effs, x, method)
+    effSelect(effs, method)
   }
 }
 
@@ -34,6 +34,6 @@ effDiscFitAndSelect <- function(x, support, method = "AIC", silent = TRUE) {
     apply(x, 2, effDiscFitAndSelect, support = support, method = method, silent = silent)
   } else {
     effs <- effDiscFit(x, support, silent)
-    effSelect(effs, x, method)
+    effSelect(effs, method)
   }
 }
