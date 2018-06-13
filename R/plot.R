@@ -12,13 +12,13 @@ col.data <- "grey70"
 #' @seealso \code{\link{plot.eff.cont}} and \code{\link{plot.eff.disc}} for more details.
 #' @export
 plot.eff <- function(.eff, plot.data = TRUE, ...) {
-  prevpar <- par(mfrow = c(1, 3))
+  prevpar <- graphics::par(mfrow = c(1, 3))
 
   dplot(.eff, plot.data, ...)
   pplot(.eff, plot.data, ...)
   qplot(.eff, plot.data, ...)
 
-  par(prevpar) # reset previous par
+  graphics::par(prevpar) # reset previous par
 }
 #' @rdname plot.eff
 #' @export

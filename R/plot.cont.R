@@ -26,20 +26,20 @@ dplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
   y <- deff(x, .eff)
   ylim = c(0, max(y))
   if(plot.data) {
-    h <- hist(.eff$data, plot = FALSE)
+    h <- graphics::hist(.eff$data, plot = FALSE)
     ylim = range(ylim, h$density)
   }
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim, ...)
-  abline(h = 0, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim, ...)
+  graphics::abline(h = 0, col = col.data, lty = 2)
 
   if(plot.data) {
-    hist(.eff$data, probability = TRUE, border = col.data, add = TRUE, axes = FALSE)
-    rug(mean(.eff$data), side = 1, col = col.data)
+    graphics::hist(.eff$data, probability = TRUE, border = col.data, add = TRUE, axes = FALSE)
+    graphics::rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(x, y, type = "l", ...)
-  rug(.eff$mean, side = 1, ...)
+  graphics::lines(x, y, type = "l", ...)
+  graphics::rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.cont
 #' @export
@@ -53,16 +53,16 @@ pplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
   x <- seq(1e-4, 1-1e-4, length.out = subdivisions)
   y <- peff(x, .eff)
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
-  abline(h = 0:1, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
+  graphics::abline(h = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
-    lines(ecdf(.eff$data), col = col.data, pch = 19, cex = 1, col.01line = NA)
-    rug(mean(.eff$data), side = 1, col = col.data)
+    graphics::lines(stats::ecdf(.eff$data), col = col.data, pch = 19, cex = 1, col.01line = NA)
+    graphics::rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(x, y, ...)
-  rug(.eff$mean, side = 1, ...)
+  graphics::lines(x, y, ...)
+  graphics::rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.cont
 #' @export
@@ -76,17 +76,17 @@ qplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
   x <- seq(0, 1, length.out = subdivisions)
   y <- qeff(x, .eff)
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
-  abline(v = 0:1, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
+  graphics::abline(v = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
     x_data <- sort(unique(.eff$data))
-    y_data <- ecdf(.eff$data)(x_data)
-    qfun <- stepfun(y_data[-length(y_data)], x_data, right = TRUE, ties = "ordered")
-    lines(qfun, col = col.data, pch = 19, cex = 1, verticals = FALSE)
-    rug(mean(.eff$data), side = 2, col = col.data)
+    y_data <- stats::ecdf(.eff$data)(x_data)
+    qfun <- stats::stepfun(y_data[-length(y_data)], x_data, right = TRUE, ties = "ordered")
+    graphics::lines(qfun, col = col.data, pch = 19, cex = 1, verticals = FALSE)
+    graphics::rug(mean(.eff$data), side = 2, col = col.data)
   }
 
-  lines(x, y, ...)
-  rug(.eff$mean, side = 2, ...)
+  graphics::lines(x, y, ...)
+  graphics::rug(.eff$mean, side = 2, ...)
 }

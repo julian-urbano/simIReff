@@ -62,13 +62,13 @@ cap <- function(x, xmin = 1e-6, xmax = 1-xmin) {
 #' @rdname effCont-helper
 #' @export
 effContMean <- function(qfun, abs.tol = 1e-6, subdivisions = 500) {
-  integrate(qfun, lower = 0, upper = 1, abs.tol = abs.tol, subdivisions = subdivisions)$value
+  stats::integrate(qfun, lower = 0, upper = 1, abs.tol = abs.tol, subdivisions = subdivisions)$value
 }
 
 #' @rdname effCont-helper
 #' @export
 effContVar <- function(qfun, mu, abs.tol = 1e-6, subdivisions = 500) {
-  integrate(function(x) qfun(x)^2, lower = 0, upper = 1,
+  stats::integrate(function(x) qfun(x)^2, lower = 0, upper = 1,
             abs.tol = abs.tol, subdivisions = subdivisions)$value - mu^2
 }
 

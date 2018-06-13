@@ -21,13 +21,13 @@ effCont_bks <- function(x) {
 
   # degrees of freedom
   fhat <- bde::density(k, x_cap)
-  K0 <- sapply(x_cap, function(xx) dbeta(xx, xx / k@b + 1, (1 - xx) / k@b + 1))
+  K0 <- sapply(x_cap, function(xx) stats::dbeta(xx, xx / k@b + 1, (1 - xx) / k@b + 1))
   df <- mean(K0 / fhat)
 
   E <- effContMean(function(p) bde::quantile(k, p)) # expected value
   Var <- effContVar(function(p) bde::quantile(k, p), E) # variance
 
-  sum1 <- integrate(function(x) bde::density(k, x), lower = 0, upper = 1)$value
+  sum1 <- stats::integrate(function(x) bde::density(k, x), lower = 0, upper = 1)$value
   F1 <- bde::distribution(k, 1)
 
   # prepare eff object and return

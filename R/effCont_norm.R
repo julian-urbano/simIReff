@@ -14,7 +14,7 @@
 effCont_norm <- function(x) {
   # estimate parameters and truncated functions
   mu0 <- mean(x)
-  sigma0 <- sd(x)
+  sigma0 <- stats::sd(x)
 
   fit <- MASS::fitdistr(x, densfun = function(xx, mu, sigma) {
     truncnorm::dtruncnorm(xx, a = 0, b = 1, mean = mu, sd = sigma)

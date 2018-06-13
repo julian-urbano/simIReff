@@ -16,7 +16,7 @@ effCont_nks <- function(x) {
   # estimate
   k <- ks::kde(x)
   tk <- effContTrunc(ks::dkde, ks::pkde, ks::qkde, fhat = k)
-  df <- mean(dnorm(0, sd = k$h) / ks::dkde(x, fhat = k))
+  df <- mean(stats::dnorm(0, sd = k$h) / ks::dkde(x, fhat = k))
 
   E <- effContMean(tk$q) # expected value
   Var <- effContVar(tk$q, E) # variance
@@ -42,6 +42,6 @@ qeff.eff.cont.nks <- function(p, .eff) {
 }
 #' @export
 reff.eff.cont.nks <- function(n, .eff) {
-  r <- runif(n)
+  r <- stats::runif(n)
   .eff$model$q(r)
 }

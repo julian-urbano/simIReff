@@ -48,8 +48,8 @@ effDisc_new <- function(p, support, df, x = NULL) {
     i <- matchTol(x, support)
     return(d[i])
   }
-  pfun <- stepfun(support, c(0, p), ties = "ordered")
-  qfun <- stepfun(p[-length(p)], support, right = TRUE, ties = "ordered")
+  pfun <- stats::stepfun(support, c(0, p), ties = "ordered")
+  qfun <- stats::stepfun(p[-length(p)], support, right = TRUE, ties = "ordered")
   # qfun <- Vectorize(function(x) {
   #   i <- which(p >= x)[1]
   #   return(support[i])
@@ -81,7 +81,7 @@ qeff.eff.disc <- function(p, .eff) {
 }
 #' @export
 reff.eff.disc <- function(n, .eff) {
-  u <- runif(n)
+  u <- stats::runif(n)
   .eff$qfun(u)
 }
 

@@ -21,7 +21,7 @@ effDisc_bbinom <- function(x, support) {
 
   # estimate parameters numerically, from initial values
   mu_0 <- mean(x_i)
-  sigma2_0 <- var(x_i)
+  sigma2_0 <- stats::var(x_i)
   shape1 <- (n*mu_0 - sigma2_0) / (n*(sigma2_0/mu_0 - mu_0 -1) + mu_0)
   shape2 <- (n - mu_0)*(n - sigma2_0/mu_0) / (n*(sigma2_0/mu_0 - mu_0 -1) + mu_0)
 

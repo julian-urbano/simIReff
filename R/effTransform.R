@@ -32,18 +32,18 @@
 #' sapply(ee2, function(e)e$mean) - obsmeans
 #' @export
 effTransform <- function(eff, mean, abs.tol = 1e-5) {
-  m <- base::mean(eff$data)
-  if(!missing(mean))
-    m <- mean
+  if(missing(mean))
+    mean <- base::mean(eff$data)
 
-  opt <- optim(par = c(1, 1),
-               fn = function(par) {
-                 teff <- effTransform_inner(eff, par[1], par[2])
-                 return((teff$mean - m)^2)
-               },
-               method = "L-BFGS-B",
-               lower = c(1, 1),
-               control = list(factr = abs.tol^2 / .Machine$double.eps))
+
+  opt <- stats::optim(par = c(1, 1),
+                      fn = function(par) {
+                        teff <- effTransform_inner(eff, par[1], par[2])
+                        return((teff$mean - mean)^2)
+                      },
+                      method = "L-BFGS-B",
+                      lower = c(1, 1),
+                      control = list(factr = abs.tol^2 / .Machine$double.eps))
 
   if(opt$convergence != 0)
     stop("No successful transformation")
@@ -74,13 +74,13 @@ effTransform_inner <- function(eff, par1, par2) {
 
     dfun <- function(x) {
       #x <- cap(x)
-      dbeta(peff(x, eff), par1, par2) * deff(x, eff)
+      stats::dbeta(peff(x, eff), par1, par2) * deff(x, eff)
     }
     pfun <- function(q) {
-      pbeta(peff(q, eff), par1, par2)
+      stats::pbeta(peff(q, eff), par1, par2)
     }
     qfun <- function(p) {
-      qeff(qbeta(p, par1, par2), eff)
+      qeff(stats::qbeta(p, par1, par2), eff)
     }
 
     E <- effContMean(qfun)
@@ -95,7 +95,7 @@ effTransform_inner <- function(eff, par1, par2) {
     teff
   } else { # discrete
     # compute the new cdf values, and from there the full object
-    p <- pbeta(peff(eff$support, eff), par1, par2)
+    p <- stats::pbeta(peff(eff$support, eff), par1, par2)
     p <- cummax(p) # ensure it's monotonically increasing
 
     teff <- effDisc_new(p, eff$support, eff$df, eff$data)
@@ -121,6 +121,6 @@ qeff.eff.cont.trans <- function(p, .eff) {
 }
 #' @export
 reff.eff.cont.trans <- function(n, .eff) {
-  u <- runif(n)
+  u <- stats::runif(n)
   .eff$model$qfun(u)
 }

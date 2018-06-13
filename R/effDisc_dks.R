@@ -30,7 +30,7 @@ effDisc_dks <- function(x, support, mult = 1) {
   if (bw$bw > 1)
     stop("(multiplied) bandwidth too large, use a smaller multiplier")
 
-  d <- predict(np::npudens(bw), se.fit = FALSE, as.ordered(support_i))
+  d <- stats::predict(np::npudens(bw), se.fit = FALSE, as.ordered(support_i))
   d <- d / sum(d)
   p <- cumsum(d)
   df <- mean((1 - bw$bw) / d[x_i])

@@ -29,16 +29,16 @@ dplot.eff.disc <- function(.eff, plot.data = TRUE,
     ylim = range(ylim, y_data)
   }
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim, ...)
-  abline(h = 0, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = ylim, ...)
+  graphics::abline(h = 0, col = col.data, lty = 2)
 
   if(plot.data) {
-    lines(x, y_data, type = "b", col = col.data, pch = 19)
-    rug(mean(.eff$data), side = 1, col = col.data)
+    graphics::lines(x, y_data, type = "b", col = col.data, pch = 19)
+    graphics::rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(x, y, type = "b", pch = 19, ...)
-  rug(.eff$mean, side = 1, ...)
+  graphics::lines(x, y, type = "b", pch = 19, ...)
+  graphics::rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.disc
 #' @export
@@ -51,18 +51,18 @@ pplot.eff.disc <- function(.eff, plot.data = TRUE,
 
   x <- .eff$support
   y <- peff(x, .eff)
-  pfun <- stepfun(x, c(0, y), ties = "ordered")
+  pfun <- stats::stepfun(x, c(0, y), ties = "ordered")
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
-  abline(h = 0:1, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
+  graphics::abline(h = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
-    lines(ecdf(.eff$data), col = col.data, pch = 19, cex = 1, col.01line = NA)
-    rug(mean(.eff$data), side = 1, col = col.data)
+    graphics::lines(stats::ecdf(.eff$data), col = col.data, pch = 19, cex = 1, col.01line = NA)
+    graphics::rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(pfun, verticals = FALSE, pch = 19, cex = 1, ...)
-  rug(.eff$mean, side = 1, ...)
+  graphics::lines(pfun, verticals = FALSE, pch = 19, cex = 1, ...)
+  graphics::rug(.eff$mean, side = 1, ...)
 }
 #' @rdname plot.eff.disc
 #' @export
@@ -75,19 +75,19 @@ qplot.eff.disc <- function(.eff, plot.data = TRUE,
 
   x <- .eff$support
   y <- peff(x, .eff)
-  qfun <- stepfun(y[-length(y)], x, right = TRUE, ties = "ordered")
+  qfun <- stats::stepfun(y[-length(y)], x, right = TRUE, ties = "ordered")
 
-  plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
-  abline(v = 0:1, col = col.data, lty = 2)
+  graphics::plot(NA, xlab = xlab, ylab = ylab, main = main, xlim = 0:1, ylim = 0:1, ...)
+  graphics::abline(v = 0:1, col = col.data, lty = 2)
 
   if(plot.data) {
     x_data <- sort(unique(.eff$data))
-    y_data <- ecdf(.eff$data)(x_data)
-    qfun_data <- stepfun(y_data[-length(y_data)], x_data, right = TRUE, ties = "ordered")
-    lines(qfun_data, col = col.data, pch = 19, cex = 1, verticals = FALSE)
-    rug(mean(.eff$data), side = 1, col = col.data)
+    y_data <- stats::ecdf(.eff$data)(x_data)
+    qfun_data <- stats::stepfun(y_data[-length(y_data)], x_data, right = TRUE, ties = "ordered")
+    graphics::lines(qfun_data, col = col.data, pch = 19, cex = 1, verticals = FALSE)
+    graphics::rug(mean(.eff$data), side = 1, col = col.data)
   }
 
-  lines(qfun, pch = 19, cex = 1, verticals = FALSE, ...)
-  rug(.eff$mean, side = 2, ...)
+  graphics::lines(qfun, pch = 19, cex = 1, verticals = FALSE, ...)
+  graphics::rug(.eff$mean, side = 2, ...)
 }

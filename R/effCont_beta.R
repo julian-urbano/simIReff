@@ -16,7 +16,7 @@ effCont_beta <- function(x) {
 
   # estimate parameters numerically, from initial values
   mu_0 <- mean(x_cap)
-  sigma2_0 <- var(x_cap)
+  sigma2_0 <- stats::var(x_cap)
   shape1 <- mu_0 * (mu_0 * (1-mu_0) / sigma2_0 -1)
   shape2 <- (mu_0) * (mu_0 * (1-mu_0) / sigma2_0 -1)
 
@@ -39,18 +39,18 @@ effCont_beta <- function(x) {
 #' @export
 deff.eff.cont.beta <- function(x, .eff) {
   x <- cap(x)
-  dbeta(x, .eff$model$shape1, .eff$model$shape2)
+  stats::dbeta(x, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
 peff.eff.cont.beta <- function(q, .eff) {
-  pbeta(q, .eff$model$shape1, .eff$model$shape2)
+  stats::pbeta(q, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
 qeff.eff.cont.beta <- function(p, .eff) {
-  qbeta(p, .eff$model$shape1, .eff$model$shape2)
+  stats::qbeta(p, .eff$model$shape1, .eff$model$shape2)
 }
 #' @export
 reff.eff.cont.beta <- function(n, .eff) {
-  rbeta(n, .eff$model$shape1, .eff$model$shape2)
+  stats::rbeta(n, .eff$model$shape1, .eff$model$shape2)
 }
 
