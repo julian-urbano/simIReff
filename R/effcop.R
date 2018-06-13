@@ -26,6 +26,7 @@
 #'   margins. See package \code{\link[rvinecopulib]{rvinecopulib}} for details on fitting
 #'   the copulas.
 #' @examples
+#' \dontrun{
 #' ## Automatically build a gaussian copula to many systems
 #' d <- web2010p20[,1:20] # sample P@20 data from 20 systems
 #' effs <- effDiscFitAndSelect(d, support("p20")) # fit and select margins
@@ -43,6 +44,7 @@
 #' Var.hat <- apply(y, 2, var)
 #' plot(Var, Var.hat)
 #' abline(0:1)
+#' }
 #' @name effcop
 #' @export
 effcopFit <- function(x, eff, ...) {

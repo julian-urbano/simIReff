@@ -24,12 +24,14 @@
 #' plot(e)
 #' plot(e2)
 #'
+#' \dontrun{
 #' # transform a list of distributions to the observed means
 #' ee <- effContFitAndSelect(web2010ap[,1:5])
 #' ee2 <- effTransformAll(ee)
 #' obsmeans <- colMeans(web2010ap[,1:5])
 #' sapply(ee, function(e)e$mean) - obsmeans
 #' sapply(ee2, function(e)e$mean) - obsmeans
+#' }
 #' @export
 effTransform <- function(eff, mean, abs.tol = 1e-5) {
   if(missing(mean))

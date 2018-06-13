@@ -25,6 +25,6 @@ C.L.A. Clarke, N. Craswell, I. Soboroff, G.V. Cormack (2010). Overview of the TR
   2010 Web Track. Text REtrieval Conference.
 }
 \seealso{
-\url{http://trec.nist.gov}
+\url{https://trec.nist.gov}
 }
 \keyword{datasets}

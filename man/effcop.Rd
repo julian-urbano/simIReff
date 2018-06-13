@@ -42,6 +42,7 @@ These components may be altered to gain specific simulation capacity, such as
 Fitting of and simulation from a copula model.
 }
 \examples{
+\dontrun{
 ## Automatically build a gaussian copula to many systems
 d <- web2010p20[,1:20] # sample P@20 data from 20 systems
 effs <- effDiscFitAndSelect(d, support("p20")) # fit and select margins
@@ -59,6 +60,7 @@ Var <- sapply(effs, function(e) e$var)
 Var.hat <- apply(y, 2, var)
 plot(Var, Var.hat)
 abline(0:1)
+}
 }
 \seealso{
 \code{\link{effCont}} and \code{\link{effDisc}} for available distributions for the

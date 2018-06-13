@@ -14,6 +14,7 @@
 #' @references J. Urbano and T. Nagler. (2018). Stochastic Simulation of Test Collections:
 #'   Evaluation Scores. ACM SIGIR.
 #' @examples
+#' \dontrun{
 #' ## Fit a marginal AP distribution and simulate new data
 #' x <- web2010ap[,10] # sample AP scores of a system
 #' e <- effContFitAndSelect(x, method = "BIC") # fit and select based on log-likelihood
@@ -65,4 +66,5 @@
 #' points(colMeans(d)[o], col = "red", pch = 4) # plot means
 #' boxplot(y[,o])
 #' points(colMeans(y)[o], col = "red", pch = 4) # plot means
+#' }
 "_PACKAGE"

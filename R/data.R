@@ -8,7 +8,7 @@
 #' @format A data frame with 88 columns (systems) and 48 rows (queries).
 #' @references C.L.A. Clarke, N. Craswell, I. Soboroff, G.V. Cormack (2010). Overview of the TREC
 #'   2010 Web Track. Text REtrieval Conference.
-#' @seealso \url{http://trec.nist.gov}
+#' @seealso \url{https://trec.nist.gov}
 "web2010ap"
 #' @rdname web2010ap
 "web2010p20"
