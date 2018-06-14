@@ -2,7 +2,7 @@
 #'
 #' Plot the density, distribution and quantile functions of a discrete effectiveness distribution.
 #'
-#' @param .eff the effectiveness distribution to plot.
+#' @param x the effectiveness distribution to plot.
 #' @param plot.data logical: whether to plot the data used to fit the distribution, if any.
 #' @param xlab the title for the x axis.
 #' @param ylab the title for the y axis.
@@ -14,8 +14,9 @@ NULL
 
 #' @rdname plot.eff.disc
 #' @export
-dplot.eff.disc <- function(.eff, plot.data = TRUE,
-                           xlab = "x", ylab = "f(x)", main = "mass", ...) {
+dplot.eff.disc <- function(x, ..., plot.data = TRUE,
+                           xlab = "x", ylab = "f(x)", main = "mass") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE
@@ -42,8 +43,9 @@ dplot.eff.disc <- function(.eff, plot.data = TRUE,
 }
 #' @rdname plot.eff.disc
 #' @export
-pplot.eff.disc <- function(.eff, plot.data = TRUE,
-                           xlab = "q", ylab = "F(q)", main = "distribution", ...) {
+pplot.eff.disc <- function(x, ..., plot.data = TRUE,
+                           xlab = "q", ylab = "F(q)", main = "distribution") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE
@@ -66,8 +68,9 @@ pplot.eff.disc <- function(.eff, plot.data = TRUE,
 }
 #' @rdname plot.eff.disc
 #' @export
-qplot.eff.disc <- function(.eff, plot.data = TRUE,
-                           xlab = "p", ylab = expression(F^-1*(p)), main = "quantile", ...) {
+qplot.eff.disc <- function(x, ..., plot.data = TRUE,
+                           xlab = "p", ylab = expression(F^-1*(p)), main = "quantile") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE

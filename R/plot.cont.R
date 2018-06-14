@@ -2,7 +2,7 @@
 #'
 #' Plot the density, distribution and quantile functions of a continuous effectiveness distribution.
 #'
-#' @param .eff the effectiveness distribution to plot.
+#' @param x the effectiveness distribution to plot.
 #' @param plot.data logical: whether to plot the data used to fit the distribution, if any.
 #' @param subdivisions number of equidistant points at which to evaluate the distribution to plot.
 #' @param xlab the title for the x axis.
@@ -15,8 +15,9 @@ NULL
 
 #' @rdname plot.eff.cont
 #' @export
-dplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
-                           xlab = "x", ylab = "f(x)", main = "density", ...) {
+dplot.eff.cont <- function(x, ..., plot.data = TRUE, subdivisions = 200,
+                           xlab = "x", ylab = "f(x)", main = "density") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE
@@ -43,8 +44,9 @@ dplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
 }
 #' @rdname plot.eff.cont
 #' @export
-pplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
-                           xlab = "q", ylab = "F(q)", main = "distribution", ...) {
+pplot.eff.cont <- function(x, ..., plot.data = TRUE, subdivisions = 200,
+                           xlab = "q", ylab = "F(q)", main = "distribution") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE
@@ -66,8 +68,9 @@ pplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
 }
 #' @rdname plot.eff.cont
 #' @export
-qplot.eff.cont <- function(.eff, plot.data = TRUE, subdivisions = 200,
-                           xlab = "p", ylab = expression(F^-1*(p)), main = "quantile", ...) {
+qplot.eff.cont <- function(x, ..., plot.data = TRUE, subdivisions = 200,
+                           xlab = "p", ylab = expression(F^-1*(p)), main = "quantile") {
+  .eff <- x
   if(plot.data && is.null(.eff$data)) {
     warning("no data to plot.")
     plot.data <- FALSE

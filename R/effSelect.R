@@ -5,7 +5,7 @@
 #' \code{which.effSelect} are helper function for automatic selection from a given list of
 #' candidates.
 #'
-#' @param .eff an effectiveness distribution.
+#' @param object an effectiveness distribution.
 #' @param effs the list of candidate distributions to select from.
 #' @param method selection method. One of \code{"AIC"} (default), \code{"BIC"}, or \code{"logLik"}.
 #' @param ... other parameters to the selection function.
@@ -42,9 +42,9 @@ which.effSelect <- function(effs, method = "AIC", ...) {
 
 #' @rdname effSelect
 #' @export
-logLik.eff <- function(.eff, ...) {
-  stopifnot(!is.null(.eff$data))
+logLik.eff <- function(object, ...) {
+  stopifnot(!is.null(object$data))
 
-  ll <- sum(log(deff(.eff$data, .eff)))
-  structure(ll, class = "logLik", df = .eff$df, nobs = length(.eff$data))
+  ll <- sum(log(deff(object$data, object)))
+  structure(ll, class = "logLik", df = object$df, nobs = length(object$data))
 }

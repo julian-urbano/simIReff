@@ -10,7 +10,7 @@ effSelect(effs, method = "AIC", ...)
 
 which.effSelect(effs, method = "AIC", ...)
 
-\method{logLik}{eff}(.eff, ...)
+\method{logLik}{eff}(object, ...)
 }
 \arguments{
 \item{effs}{the list of candidate distributions to select from.}
@@ -19,7 +19,7 @@ which.effSelect(effs, method = "AIC", ...)
 
 \item{...}{other parameters to the selection function.}
 
-\item{.eff}{an effectiveness distribution.}
+\item{object}{an effectiveness distribution.}
 }
 \value{
 the selected disttribution (\code{effSelect}), or its index within \code{effs}

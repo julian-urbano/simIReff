@@ -7,17 +7,19 @@
 \alias{qplot.eff.disc}
 \title{Plotting tools for Discrete effectiveness distributions}
 \usage{
-\method{dplot}{eff.disc}(.eff, plot.data = TRUE, xlab = "x",
-  ylab = "f(x)", main = "mass", ...)
+\method{dplot}{eff.disc}(x, ..., plot.data = TRUE, xlab = "x",
+  ylab = "f(x)", main = "mass")
 
-\method{pplot}{eff.disc}(.eff, plot.data = TRUE, xlab = "q",
-  ylab = "F(q)", main = "distribution", ...)
+\method{pplot}{eff.disc}(x, ..., plot.data = TRUE, xlab = "q",
+  ylab = "F(q)", main = "distribution")
 
-\method{qplot}{eff.disc}(.eff, plot.data = TRUE, xlab = "p",
-  ylab = expression(F^-1 * (p)), main = "quantile", ...)
+\method{qplot}{eff.disc}(x, ..., plot.data = TRUE, xlab = "p",
+  ylab = expression(F^-1 * (p)), main = "quantile")
 }
 \arguments{
-\item{.eff}{the effectiveness distribution to plot.}
+\item{x}{the effectiveness distribution to plot.}
+
+\item{...}{arguments to be passed to \code{\link[graphics]{lines}}.}
 
 \item{plot.data}{logical: whether to plot the data used to fit the distribution, if any.}
 
@@ -26,8 +28,6 @@
 \item{ylab}{the title for the y axis.}
 
 \item{main}{the overall title for the plot.}
-
-\item{...}{arguments to be passed to \code{\link[graphics]{lines}}.}
 }
 \description{
 Plot the density, distribution and quantile functions of a discrete effectiveness distribution.

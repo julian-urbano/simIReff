@@ -7,20 +7,20 @@
 \alias{qplot}
 \title{Plotting tools for effectiveness distributions}
 \usage{
-\method{plot}{eff}(.eff, plot.data = TRUE, ...)
+\method{plot}{eff}(x, ..., plot.data = TRUE)
 
-dplot(.eff, plot.data = TRUE, ...)
+dplot(x, ..., plot.data = TRUE)
 
-pplot(.eff, plot.data = TRUE, ...)
+pplot(x, ..., plot.data = TRUE)
 
-qplot(.eff, plot.data = TRUE, ...)
+qplot(x, ..., plot.data = TRUE)
 }
 \arguments{
-\item{.eff}{the effectiveness distribution to plot.}
-
-\item{plot.data}{logical: whether to plot the data used to fit the distribution, if any.}
+\item{x}{the effectiveness distribution to plot.}
 
 \item{...}{other arguments to be passed to graphical functions.}
+
+\item{plot.data}{logical: whether to plot the data used to fit the distribution, if any.}
 }
 \description{
 Plot the density, distribution and quantile functions of an effectiveness distribution. Function
