@@ -24,7 +24,7 @@
 #' plot(e)
 #' plot(e2)
 #'
-#' \dontrun{
+#' \donttest{
 #' # transform a list of distributions to the observed means
 #' ee <- effContFitAndSelect(web2010ap[,1:5])
 #' ee2 <- effTransformAll(ee)

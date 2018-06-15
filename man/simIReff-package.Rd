@@ -18,7 +18,7 @@ limitations of Information Retrieval evaluation research. These tools include:
 }
 }
 \examples{
-\dontrun{
+\donttest{
 ## Fit a marginal AP distribution and simulate new data
 x <- web2010ap[,10] # sample AP scores of a system
 e <- effContFitAndSelect(x, method = "BIC") # fit and select based on log-likelihood

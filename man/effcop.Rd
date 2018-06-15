@@ -42,7 +42,7 @@ These components may be altered to gain specific simulation capacity, such as
 Fitting of and simulation from a copula model.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Automatically build a gaussian copula to many systems
 d <- web2010p20[,1:20] # sample P@20 data from 20 systems
 effs <- effDiscFitAndSelect(d, support("p20")) # fit and select margins
