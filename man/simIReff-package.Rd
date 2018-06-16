@@ -21,7 +21,7 @@ limitations of Information Retrieval evaluation research. These tools include:
 \donttest{
 ## Fit a marginal AP distribution and simulate new data
 x <- web2010ap[,10] # sample AP scores of a system
-e <- effContFitAndSelect(x, method = "BIC") # fit and select based on log-likelihood
+e <- effContFitAndSelect(x, method = "BIC") # fit and select based on BIC
 plot(e) # plot pdf, cdf and quantile function
 e$mean # expected value
 y <- reff(50, e) # simulation of 50 new topics
@@ -40,7 +40,7 @@ y <- reffcop(1000, cop) # simulation of 1000 new topics
 c(e1$mean, e2$mean) # expected means
 colMeans(y) # observed means
 
-## Modify the model to both systems have the same distribution
+## Modify the model so both systems have the same distribution
 cop2 <- cop # copy the model
 cop2$margins[[2]] <- e1 # modify 2nd margin
 y <- reffcop(1000, cop2) # simulation of 1000 new topics
