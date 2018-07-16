@@ -3,7 +3,7 @@
 [![CRAN version](http://www.r-pkg.org/badges/version/simIReff?color=blue)](https://cran.r-project.org/package=simIReff) 
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/simIReff?color=blue)](https://cran.r-project.org/package=simIReff) 
 
-# simIReff
+# simIReff <img src="logo/logo-140x122.png" align="right" />
 
 Provides tools for the stochastic simulation of effectiveness scores to mitigate data-related limitations of Information Retrieval evaluation research. These tools include:
 
@@ -105,3 +105,13 @@ points(colMeans(y)[o], col = "red", pch = 4) # plot means
 ## License
 
 `simIReff` is released under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+When using this archive, please [cite](CITE.bib) the above paper:
+
+    @inproceedings{urbano2018simulation,
+      author = {Urbano, Juli\'{a}n and Nagler, Thomas},
+      booktitle = {International ACM SIGIR Conference on Research and Development in Information Retrieval},
+      title = {{Stochastic Simulation of Test Collections: Evaluation Scores}},
+      pages = {695--704},
+      year = {2018}
+    }
